@@ -1,628 +1,1392 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MTM Watches | المجموعات الحصرية</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700&family=Montserrat:wght@200;400;500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --brand-gold: #C9A84C;
-      --pure-white: #ffffff;
-      --soft-white: #fbfbfb;
-      --dark-charcoal: #111111;
-      --text-muted: #777777;
-      --border-color: #eeeeee;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MTM Watches — صفحة المنتج</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --gold: #C9A84C;
+  --gold-light: #e2c882;
+  --black: #111111;
+  --white: #ffffff;
+  --off-white: #f8f8f6;
+  --gray-100: #f5f5f3;
+  --gray-200: #e8e8e4;
+  --gray-400: #a0a09a;
+  --gray-600: #6b6b65;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+}
 
-    body {
-      font-family: 'Almarai', 'Montserrat', sans-serif;
-      background-color: var(--pure-white);
-      color: var(--dark-charcoal);
-      direction: rtl;
-      -webkit-font-smoothing: antialiased;
-    }
+html { scroll-behavior: smooth; }
 
-    header {
-      padding: 30px 40px;
-      text-align: center;
-      border-bottom: 1px solid var(--border-color);
-      background: var(--pure-white);
-    }
-    .brand-logo {
-      font-size: 1.8rem;
-      font-weight: 700;
-      letter-spacing: 6px;
-      color: var(--dark-charcoal);
-      font-family: 'Montserrat', sans-serif;
-    }
-    .brand-tagline {
-      font-size: 0.7rem;
-      letter-spacing: 3px;
-      color: var(--text-muted);
-      margin-top: 4px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 200;
-      text-transform: uppercase;
-    }
+body {
+  font-family: 'Almarai', sans-serif;
+  background: var(--white);
+  color: var(--black);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
 
-    .product-switcher {
-      display: flex;
-      justify-content: center;
-      gap: 0;
-      max-width: 520px;
-      margin: 44px auto 10px auto;
-      border: 1px solid var(--border-color);
-    }
-    .switcher-btn {
-      flex: 1;
-      background: transparent;
-      border: none;
-      border-left: 1px solid var(--border-color);
-      padding: 16px 20px;
-      font-family: 'Almarai', sans-serif;
-      font-size: 0.9rem;
-      cursor: pointer;
-      color: var(--text-muted);
-      transition: all 0.25s ease;
-      font-weight: 400;
-    }
-    .switcher-btn:last-child { border-left: none; }
-    .switcher-btn.active {
-      background: var(--dark-charcoal);
-      color: var(--pure-white);
-      font-weight: 700;
-    }
+/* ─── Header ─── */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 72px;
+  border-bottom: 1px solid var(--gray-200);
+  position: sticky;
+  top: 0;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+}
+.logo {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: 0.12em;
+  color: var(--black);
+  text-decoration: none;
+}
+.logo span { color: var(--gold); }
+nav { display: flex; gap: 32px; }
+nav a {
+  font-size: 13px;
+  color: var(--gray-600);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  transition: color .2s;
+}
+nav a:hover { color: var(--black); }
 
-    .main-container {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 1360px;
-      margin: 28px auto 100px auto;
-      padding: 0 48px;
-      gap: 80px;
-      align-items: flex-start;
-    }
+/* ─── Product Tabs ─── */
+.tabs-bar {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid var(--gray-200);
+  background: var(--white);
+  position: sticky;
+  top: 72px;
+  z-index: 90;
+}
+.tab-btn {
+  font-family: 'Almarai', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--gray-600);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 14px 36px;
+  cursor: pointer;
+  transition: all .2s cubic-bezier(0.23,1,0.32,1);
+  white-space: nowrap;
+}
+.tab-btn:hover { color: var(--black); }
+.tab-btn.active {
+  color: var(--black);
+  font-weight: 700;
+  border-bottom-color: var(--gold);
+}
 
-    /* ── Gallery ── */
-    .gallery-section {
-      flex: 1 1 46%;
-      min-width: 300px;
-      position: sticky;
-      top: 40px;
-    }
+/* ─── Main Layout ─── */
+main {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 56px 24px 80px;
+}
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
 
-    .main-image-wrapper {
-      background-color: var(--soft-white);
-      border: 1px solid var(--border-color);
-      position: relative;
-      overflow: hidden;
-      aspect-ratio: 1 / 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+/* ─── Canvas Column ─── */
+.canvas-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  position: sticky;
+  top: 148px;
+}
+#watchCanvas {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  background: var(--off-white);
+  display: block;
+  max-width: 100%;
+  touch-action: none;
+  cursor: default;
+}
+.shape-selector {
+  display: flex;
+  gap: 8px;
+}
+.shape-btn {
+  font-family: 'Almarai', sans-serif;
+  font-size: 12px;
+  color: var(--gray-600);
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 20px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all .18s;
+}
+.shape-btn.active {
+  background: var(--black);
+  color: var(--white);
+  border-color: var(--black);
+}
+.shape-btn:not(.active):hover { border-color: var(--gray-600); color: var(--black); }
 
-    /* placeholder watch face shown when no real image is loaded */
-    .watch-placeholder {
-      width: 70%;
-      aspect-ratio: 1 / 1;
-      border-radius: 50%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      transition: background-color 0.4s ease;
-      border: 3px solid rgba(255,255,255,0.15);
-      box-shadow: 0 8px 40px rgba(0,0,0,0.18);
-    }
-    .watch-placeholder .dial-flag {
-      font-size: 3.5rem;
-      line-height: 1;
-    }
-    .watch-placeholder .dial-text {
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: rgba(255,255,255,0.85);
-      font-family: 'Montserrat', sans-serif;
-      text-align: center;
-    }
-    .watch-placeholder .dial-price {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--brand-gold);
-      font-family: 'Almarai', sans-serif;
-    }
+/* canvas toolbar */
+.canvas-toolbar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.toolbar-btn {
+  font-family: 'Almarai', sans-serif;
+  font-size: 12px;
+  color: var(--gray-600);
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all .15s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.toolbar-btn:hover { border-color: var(--gray-600); color: var(--black); }
+.toolbar-btn:disabled { opacity: .4; cursor: not-allowed; }
 
-    .edition-tag {
-      position: absolute;
-      top: 18px;
-      left: 18px;
-      background: rgba(255,255,255,0.92);
-      color: var(--dark-charcoal);
-      border: 1px solid var(--dark-charcoal);
-      padding: 5px 12px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
+/* ─── Info Column ─── */
+.info-col { display: flex; flex-direction: column; gap: 28px; }
 
-    .thumbnails-wrapper {
-      display: flex;
-      gap: 10px;
-      margin-top: 14px;
-    }
-    .thumb-box {
-      width: 76px;
-      height: 76px;
-      border: 1px solid var(--border-color);
-      cursor: pointer;
-      opacity: 0.45;
-      transition: all 0.25s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
-      background: var(--soft-white);
-      flex-shrink: 0;
-    }
-    .thumb-box.active, .thumb-box:hover {
-      border-color: var(--dark-charcoal);
-      opacity: 1;
-    }
+.product-collection {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+.product-title {
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--black);
+  margin-top: 6px;
+}
+.product-subtitle {
+  font-size: 15px;
+  color: var(--gray-600);
+  font-weight: 300;
+  margin-top: 4px;
+}
 
-    /* ── Info ── */
-    .info-section {
-      flex: 1 1 40%;
-      min-width: 300px;
-      display: flex;
-      flex-direction: column;
-    }
+/* ─── Country Grid ─── */
+.section-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--gray-400);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.country-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.country-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 8px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  cursor: pointer;
+  transition: all .18s cubic-bezier(0.23,1,0.32,1);
+  font-family: 'Almarai', sans-serif;
+}
+.country-btn:hover { border-color: var(--gray-400); background: var(--gray-100); }
+.country-btn.active { border-color: var(--gold); background: #fdf8ee; }
+.country-flag { font-size: 22px; line-height: 1; }
+.country-name { font-size: 12px; color: var(--gray-600); font-weight: 400; }
+.country-btn.active .country-name { color: var(--black); font-weight: 700; }
 
-    .product-collection {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 3px;
-      color: var(--brand-gold);
-      text-transform: uppercase;
-      margin-bottom: 12px;
-      font-family: 'Montserrat', sans-serif;
-    }
-    .product-title {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--dark-charcoal);
-      margin-bottom: 4px;
-      line-height: 1.1;
-    }
-    .product-subtitle {
-      font-size: 1rem;
-      color: var(--text-muted);
-      margin-bottom: 18px;
-      font-weight: 300;
-    }
-    .product-price {
-      font-size: 2rem;
-      color: var(--dark-charcoal);
-      margin-bottom: 6px;
-      font-weight: 700;
-      font-family: 'Almarai', sans-serif;
-    }
-    .price-note {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-bottom: 28px;
-      font-weight: 300;
-    }
-    .product-description {
-      line-height: 1.85;
-      color: #444444;
-      font-size: 0.9rem;
-      margin-bottom: 36px;
-      font-weight: 300;
-      border-right: 2px solid var(--border-color);
-      padding-right: 16px;
-    }
+/* ─── Price Block ─── */
+.price-block {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 20px 24px;
+  background: var(--gray-100);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--gray-200);
+}
+.price-label { font-size: 13px; color: var(--gray-600); }
+.price-value {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--black);
+}
+.country-desc { font-size: 14px; color: var(--gray-600); line-height: 1.7; margin-top: 8px; }
 
-    .selector-title {
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--dark-charcoal);
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      font-family: 'Montserrat', sans-serif;
-    }
-    .country-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 38px;
-    }
-    .country-button {
-      background: var(--pure-white);
-      border: 1px solid var(--border-color);
-      padding: 13px 10px;
-      font-family: 'Almarai', sans-serif;
-      font-size: 0.82rem;
-      color: var(--dark-charcoal);
-      cursor: pointer;
-      transition: all 0.2s ease;
-      text-align: center;
-      line-height: 1.4;
-    }
-    .country-button:hover { border-color: var(--dark-charcoal); }
-    .country-button.active {
-      background: var(--dark-charcoal);
-      color: var(--pure-white);
-      border-color: var(--dark-charcoal);
-      font-weight: 700;
-    }
-    .country-button .flag { display: block; font-size: 1.2rem; margin-bottom: 3px; }
-    .country-button .cname { display: block; }
+/* ─── Specs ─── */
+.specs-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.specs-list li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 14px; color: var(--gray-600); padding-right: 2px;
+}
+.specs-list li::before {
+  content: '';
+  display: inline-block; width: 4px; height: 4px; min-width: 4px;
+  background: var(--gold); border-radius: 50%; margin-top: 8px;
+}
 
-    .specs-list {
-      list-style: none;
-      margin-bottom: 36px;
-      border-top: 1px solid var(--border-color);
-      padding-top: 26px;
-    }
-    .specs-list li {
-      margin-bottom: 11px;
-      font-size: 0.88rem;
-      color: #555555;
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-weight: 300;
-      line-height: 1.5;
-    }
-    .specs-list li::before {
-      content: "";
-      width: 5px;
-      height: 5px;
-      background-color: var(--brand-gold);
-      display: inline-block;
-      flex-shrink: 0;
-      margin-top: 6px;
-    }
+/* ─── Customizer Panel ─── */
+.customizer-panel { border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; }
+.customizer-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px; background: var(--gray-100); border-bottom: 1px solid var(--gray-200);
+}
+.customizer-header h3 { font-size: 14px; font-weight: 700; color: var(--black); }
+.customizer-hint { font-size: 12px; color: var(--gray-400); }
+.customizer-body { padding: 18px; display: flex; flex-direction: column; gap: 16px; }
 
-    .whatsapp-cta {
-      width: 100%;
-      padding: 20px;
-      background: var(--dark-charcoal);
-      color: var(--pure-white);
-      border: none;
-      font-size: 0.92rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-bottom: 14px;
-      letter-spacing: 1.5px;
-      font-family: 'Almarai', sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-    .whatsapp-cta:hover {
-      background: var(--brand-gold);
-      color: var(--dark-charcoal);
-    }
-    .whatsapp-cta svg {
-      width: 18px;
-      height: 18px;
-      fill: currentColor;
-      flex-shrink: 0;
-    }
+.ctrl-group { display: flex; flex-direction: column; gap: 8px; }
+.ctrl-label { font-size: 12px; color: var(--gray-600); font-weight: 700; }
+.ctrl-row { display: flex; align-items: center; gap: 10px; }
 
-    .trust-line {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      text-align: center;
-      margin-bottom: 36px;
-      font-weight: 300;
-      letter-spacing: 0.5px;
-    }
+#textInput {
+  width: 100%; padding: 9px 12px;
+  border: 1px solid var(--gray-200); border-radius: var(--radius-sm);
+  font-family: 'Almarai', sans-serif; font-size: 14px; color: var(--black);
+  background: var(--white); outline: none; transition: border-color .18s;
+  text-align: right; direction: rtl;
+}
+#textInput:focus { border-color: var(--gold); }
+#textInput::placeholder { color: var(--gray-400); }
 
-    .accordion-group { border-top: 1px solid var(--border-color); }
-    .accordion-block { border-bottom: 1px solid var(--border-color); }
-    .accordion-trigger {
-      background: none;
-      border: none;
-      width: 100%;
-      text-align: right;
-      padding: 18px 0;
-      font-size: 0.9rem;
-      color: var(--dark-charcoal);
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: 'Almarai', sans-serif;
-      font-weight: 400;
-    }
-    .accordion-trigger .acc-icon {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      transition: transform 0.2s ease;
-      flex-shrink: 0;
-    }
-    .accordion-trigger.open .acc-icon { transform: rotate(45deg); }
-    .accordion-content {
-      overflow: hidden;
-      max-height: 0;
-      transition: max-height 0.3s ease, padding 0.3s ease;
-      color: var(--text-muted);
-      line-height: 1.75;
-      font-size: 0.85rem;
-      font-weight: 300;
-    }
-    .accordion-content.open {
-      max-height: 200px;
-      padding-bottom: 20px;
-    }
+.color-wrap { display: flex; align-items: center; gap: 8px; flex: 1; }
+#colorPicker {
+  width: 36px; height: 36px; border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm); padding: 2px; background: none; cursor: pointer; flex-shrink: 0;
+}
+#colorHex {
+  font-family: 'Montserrat', sans-serif; font-size: 12px; color: var(--gray-600);
+  background: var(--gray-100); border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm); padding: 6px 10px; min-width: 80px; text-transform: uppercase;
+}
 
-    @media (max-width: 900px) {
-      .main-container { flex-direction: column; padding: 20px; gap: 32px; }
-      .gallery-section { position: static; }
-      .product-title { font-size: 1.8rem; }
-      .country-grid { grid-template-columns: repeat(3, 1fr); }
-      header { padding: 22px 20px; }
-    }
-    @media (max-width: 480px) {
-      .country-grid { grid-template-columns: repeat(2, 1fr); }
-      .product-switcher { max-width: 100%; margin: 28px 20px 10px; }
-    }
-  </style>
+.range-wrap { display: flex; align-items: center; gap: 10px; flex: 1; }
+#sizeRange { flex: 1; accent-color: var(--gold); cursor: pointer; }
+#sizeVal {
+  font-family: 'Montserrat', sans-serif; font-size: 12px; color: var(--gray-600);
+  min-width: 38px; text-align: center; background: var(--gray-100);
+  border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 5px 8px;
+}
+
+.divider {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 12px; color: var(--gray-400);
+}
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--gray-200); }
+
+.upload-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 10px;
+  border: 1.5px dashed var(--gray-200); border-radius: var(--radius-sm);
+  background: var(--white); color: var(--gray-600);
+  font-family: 'Almarai', sans-serif; font-size: 13px; cursor: pointer;
+  transition: all .18s;
+}
+.upload-btn:hover { border-color: var(--gold); color: var(--black); background: #fdf8ee; }
+#imageFileInput { display: none; }
+
+.ctrl-actions { display: flex; gap: 8px; justify-content: flex-end; }
+.clear-btn {
+  font-family: 'Almarai', sans-serif; font-size: 12px; color: var(--gray-400);
+  background: none; border: none; cursor: pointer; text-decoration: underline; padding: 0;
+  transition: color .15s;
+}
+.clear-btn:hover { color: var(--black); }
+
+.customizer-tip {
+  font-size: 12px; color: var(--gray-400); text-align: center;
+  padding: 8px 12px; background: var(--gray-100); border-radius: var(--radius-sm);
+  line-height: 1.7; transition: opacity .3s;
+}
+.customizer-tip.highlight {
+  background: #fdf8ee; border: 1px solid var(--gold-light); color: #8a6a1c;
+  font-weight: 700;
+}
+
+/* ─── WhatsApp Buttons ─── */
+.wa-buttons { display: flex; flex-direction: column; gap: 10px; }
+.btn-primary {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 15px 24px; background: var(--black); color: var(--white);
+  border: none; border-radius: var(--radius-sm);
+  font-family: 'Almarai', sans-serif; font-size: 15px; font-weight: 700;
+  cursor: pointer; transition: background .2s; letter-spacing: 0.02em;
+}
+.btn-primary:hover { background: #1e1e1e; }
+.btn-primary svg { flex-shrink: 0; }
+.btn-secondary {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 13px 24px; background: var(--white); color: var(--black);
+  border: 1.5px solid var(--black); border-radius: var(--radius-sm);
+  font-family: 'Almarai', sans-serif; font-size: 14px; cursor: pointer;
+  transition: background .2s; letter-spacing: 0.02em;
+}
+.btn-secondary:hover { background: var(--gray-100); }
+
+/* ─── Accordion ─── */
+.accordion { border-top: 1px solid var(--gray-200); }
+.accordion-item { border-bottom: 1px solid var(--gray-200); }
+.accordion-trigger {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; padding: 16px 0; background: none; border: none; cursor: pointer;
+  font-family: 'Almarai', sans-serif; font-size: 14px; font-weight: 700; color: var(--black); text-align: right;
+}
+.accordion-trigger svg { transition: transform .2s cubic-bezier(0.23,1,0.32,1); flex-shrink: 0; }
+.accordion-trigger[aria-expanded="true"] svg { transform: rotate(180deg); }
+.accordion-collapsible {
+  display: grid; grid-template-rows: 0fr;
+  transition: grid-template-rows .22s cubic-bezier(0.23,1,0.32,1); overflow: hidden;
+}
+.accordion-collapsible.open { grid-template-rows: 1fr; }
+.accordion-collapsible-inner { overflow: hidden; }
+.accordion-content { padding-bottom: 16px; }
+.accordion-content p, .accordion-content li { font-size: 14px; color: var(--gray-600); line-height: 1.75; }
+.accordion-content ul { padding-right: 18px; margin-top: 4px; }
+.accordion-content ul li { list-style: disc; }
+
+/* ─── Footer ─── */
+footer {
+  border-top: 1px solid var(--gray-200); padding: 28px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+footer p { font-size: 12px; color: var(--gray-400); }
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  header { padding: 0 20px; }
+  nav { display: none; }
+  main { padding: 32px 16px 64px; }
+  .product-grid { grid-template-columns: 1fr; gap: 32px; }
+  .canvas-col { position: static; }
+  .tab-btn { padding: 12px 16px; font-size: 13px; }
+  footer { flex-direction: column; gap: 8px; text-align: center; padding: 20px; }
+}
+</style>
 </head>
 <body>
 
-  <header>
-    <div class="brand-logo">MTM</div>
-    <div class="brand-tagline">Made To Match · Luxury Timepieces</div>
-  </header>
+<!-- Header -->
+<header>
+  <a class="logo" href="#">M<span>TM</span></a>
+  <nav>
+    <a href="#">المجموعات</a>
+    <a href="#">عن MTM</a>
+    <a href="#">تواصل معنا</a>
+  </nav>
+</header>
 
-  <div class="product-switcher">
-    <button class="switcher-btn active" id="tab-bawaba" onclick="switchProduct('bawaba')">ساعة بوابة الوطن</button>
-    <button class="switcher-btn" id="tab-national" onclick="switchProduct('national')">ساعة اليوم الوطني</button>
+<!-- Product Tabs -->
+<div class="tabs-bar">
+  <button class="tab-btn active" data-product="bawaba">ساعة بوابة الوطن</button>
+  <button class="tab-btn" data-product="national">ساعة اليوم الوطني</button>
+  <button class="tab-btn" data-product="shams">ساعة شمس الوطن</button>
+</div>
+
+<!-- Main -->
+<main>
+  <div class="product-grid">
+
+    <!-- Canvas Column -->
+    <div class="canvas-col">
+      <canvas id="watchCanvas" width="460" height="540"></canvas>
+
+      <div class="canvas-toolbar">
+        <button class="toolbar-btn" id="undoBtn" disabled title="تراجع">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>
+          تراجع
+        </button>
+        <button class="toolbar-btn" id="downloadPreviewBtn" title="تنزيل التصميم">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          تنزيل
+        </button>
+      </div>
+
+      <div class="shape-selector">
+        <button class="shape-btn active" data-shape="rectangular">▭ مستطيل</button>
+        <button class="shape-btn" data-shape="octagonal">⬡ ثماني</button>
+        <button class="shape-btn" data-shape="circular">○ دائري</button>
+      </div>
+    </div>
+
+    <!-- Info Column -->
+    <div class="info-col">
+
+      <!-- Title -->
+      <div>
+        <div class="product-collection" id="productCollection">مجموعة التراث الخليجي</div>
+        <h1 class="product-title" id="productTitle">ساعة بوابة الوطن</h1>
+        <p class="product-subtitle" id="productSubtitle">حرفة خليجية راقية — إصدار محدود</p>
+      </div>
+
+      <!-- Country Selector -->
+      <div>
+        <p class="section-label">اختر دولتك</p>
+        <div class="country-grid">
+          <button class="country-btn active" data-country="kuwait"><span class="country-flag">🇰🇼</span><span class="country-name">الكويت</span></button>
+          <button class="country-btn" data-country="saudi"><span class="country-flag">🇸🇦</span><span class="country-name">السعودية</span></button>
+          <button class="country-btn" data-country="uae"><span class="country-flag">🇦🇪</span><span class="country-name">الإمارات</span></button>
+          <button class="country-btn" data-country="qatar"><span class="country-flag">🇶🇦</span><span class="country-name">قطر</span></button>
+          <button class="country-btn" data-country="bahrain"><span class="country-flag">🇧🇭</span><span class="country-name">البحرين</span></button>
+          <button class="country-btn" data-country="oman"><span class="country-flag">🇴🇲</span><span class="country-name">عُمان</span></button>
+        </div>
+      </div>
+
+      <!-- Price -->
+      <div>
+        <div class="price-block">
+          <span class="price-label">السعر</span>
+          <span class="price-value" id="priceValue">١٨٠ د.ك</span>
+        </div>
+        <p class="country-desc" id="countryDesc">إصدار دولة الكويت — مصنوعة يدوياً بمواد فاخرة</p>
+      </div>
+
+      <!-- Specs -->
+      <div>
+        <p class="section-label">المميزات</p>
+        <ul class="specs-list" id="specsList">
+          <li>حركة سويسرية أوتوماتيكية دقيقة</li>
+          <li>علبة ستانلس ستيل 316L مصقولة</li>
+          <li>زجاج ياقوت مقاوم للخدش</li>
+          <li>مقاوم للماء حتى ٥٠ متر</li>
+          <li>إصدار محدود مرقّم يدوياً</li>
+        </ul>
+      </div>
+
+      <!-- Customizer -->
+      <div class="customizer-panel">
+        <div class="customizer-header">
+          <h3>صمّم مينا ساعتك</h3>
+          <span class="customizer-hint">اسحب داخل المينا • أركان للتكبير • دائرة للتدوير</span>
+        </div>
+        <div class="customizer-body">
+
+          <div class="ctrl-group">
+            <label class="ctrl-label" for="textInput">النص على المينا</label>
+            <input type="text" id="textInput" placeholder="اكتب نصك هنا..." autocomplete="off" maxlength="40">
+            <div class="ctrl-actions">
+              <button class="clear-btn" id="clearTextBtn">مسح النص</button>
+            </div>
+          </div>
+
+          <div class="ctrl-group">
+            <label class="ctrl-label">لون النص</label>
+            <div class="ctrl-row">
+              <div class="color-wrap">
+                <input type="color" id="colorPicker" value="#111111">
+                <span id="colorHex">#111111</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ctrl-group">
+            <label class="ctrl-label" for="sizeRange">حجم الخط</label>
+            <div class="ctrl-row">
+              <div class="range-wrap">
+                <input type="range" id="sizeRange" min="12" max="72" value="28">
+                <span id="sizeVal">28px</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider">أو أضف صورة</div>
+
+          <div class="ctrl-group">
+            <label class="upload-btn" for="imageFileInput">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              رفع صورة
+            </label>
+            <input type="file" id="imageFileInput" accept="image/*">
+            <div class="ctrl-actions">
+              <button class="clear-btn" id="clearImageBtn">مسح الصورة</button>
+            </div>
+          </div>
+
+          <div class="customizer-tip" id="customizerTip">
+            💡 اسحب النص أو الصورة داخل المينا • الأركان للتكبير/التصغير • الدائرة الذهبية للتدوير
+          </div>
+
+        </div>
+      </div>
+
+      <!-- WhatsApp Buttons -->
+      <div class="wa-buttons">
+        <button class="btn-primary" id="btnSendDesign">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.128.559 4.122 1.534 5.847L0 24l6.335-1.51A11.951 11.951 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.667-.499-5.21-1.374l-.374-.222-3.874.922.962-3.769-.244-.389A9.945 9.945 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          إرسال تصميمك عبر واتساب
+        </button>
+        <button class="btn-secondary" id="btnDirectContact">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.128.559 4.122 1.534 5.847L0 24l6.335-1.51A11.951 11.951 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.667-.499-5.21-1.374l-.374-.222-3.874.922.962-3.769-.244-.389A9.945 9.945 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          تواصل مباشرة
+        </button>
+      </div>
+
+      <!-- Accordion -->
+      <div class="accordion">
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" data-target="acc-specs">
+            المواصفات الفنية التفصيلية
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="accordion-collapsible" id="acc-specs">
+            <div class="accordion-collapsible-inner"><div class="accordion-content">
+              <ul>
+                <li>الحركة: أوتوماتيكية سويسرية — معايرة يدوياً</li>
+                <li>قطر العلبة: ٤٢ مم / سُمك: ١١ مم</li>
+                <li>المادة: ستانلس ستيل 316L مصقول</li>
+                <li>زجاج ياقوت مضاد للانعكاس</li>
+                <li>مقاوم للماء: ٥ ATM (٥٠ م)</li>
+                <li>احتياطي طاقة: ٤٢ ساعة</li>
+                <li>الإصدار: محدود ومرقّم</li>
+              </ul>
+            </div></div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" data-target="acc-delivery">
+            سياسة التوصيل والإرجاع
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="accordion-collapsible" id="acc-delivery">
+            <div class="accordion-collapsible-inner"><div class="accordion-content">
+              <p>التوصيل داخل الكويت خلال ٢–٣ أيام عمل. دول الخليج ٥–٧ أيام بشحن مؤمّن. الإرجاع مقبول خلال ١٤ يوماً من الاستلام شرط أن تكون الساعة بحالتها الأصلية مع علبتها ووثائقها. الضمان سنتان ضد عيوب الصناعة.</p>
+            </div></div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" data-target="acc-warranty">
+            الضمان والخدمة
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="accordion-collapsible" id="acc-warranty">
+            <div class="accordion-collapsible-inner"><div class="accordion-content">
+              <p>كل ساعة MTM تأتي مع بطاقة ضمان دولية لمدة سنتين. خدمة الصيانة الدورية متاحة عبر التواصل المباشر. قطع الغيار الأصلية مضمونة لمدة ٥ سنوات.</p>
+            </div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
+</main>
 
-  <main class="main-container">
+<footer>
+  <p>© 2025 MTM Watches — جميع الحقوق محفوظة</p>
+  <p style="font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:0.1em;color:#c8c8c0">CRAFTED FOR THE GULF</p>
+</footer>
 
-    <div class="gallery-section">
-      <div class="main-image-wrapper" id="mainImageWrapper">
-        <div class="watch-placeholder" id="watchPlaceholder">
-          <span class="dial-flag" id="dialFlag">🇰🇼</span>
-          <span class="dial-text" id="dialText">KUWAIT EDITION</span>
-          <span class="dial-price" id="dialPrice">١٨٠ د.ك</span>
-        </div>
-        <span class="edition-tag" id="editionTag">إصدار دولة الكويت</span>
-      </div>
-      <div class="thumbnails-wrapper" id="thumbnailList"></div>
-    </div>
+<script>
+// ═══════════════════════════════════════════
+//  CATALOG DATA
+// ═══════════════════════════════════════════
+const WHATSAPP = "96598553406";
 
-    <div class="info-section">
-      <div class="product-collection" id="collectionLabel">مجموعة التراث الخليجي</div>
-      <h1 class="product-title" id="productTitle">ساعة بوابة الوطن</h1>
-      <p class="product-subtitle" id="countryName">إصدار دولة الكويت</p>
-      <div class="product-price" id="productPrice">١٨٠ د.ك</div>
-      <div class="price-note">شامل ضريبة القيمة المضافة · توصيل مجاني</div>
+const catalog = {
+  bawaba: {
+    baseTitle: "ساعة بوابة الوطن",
+    collection: "مجموعة التراث الخليجي",
+    shape: "rectangular",
+    specs: ["حركة سويسرية أوتوماتيكية دقيقة","علبة ستانلس ستيل مستطيلة مصقولة","زجاج ياقوت مقاوم للخدش","مقاوم للماء حتى ٥٠ متر","سير جلدي فاخر مخيّط يدوياً"],
+    countries: {
+      kuwait:  { name:"إصدار دولة الكويت",             price:"١٨٠ د.ك",   desc:"تصميم يعكس روح الكويت وأصالتها" },
+      saudi:   { name:"إصدار المملكة العربية السعودية", price:"٢,٢٠٠ ر.س", desc:"إهداء يليق بعظمة المملكة" },
+      uae:     { name:"إصدار دولة الإمارات",           price:"٢,١٥٠ د.إ", desc:"تحفة فنية بروح الإمارات" },
+      qatar:   { name:"إصدار دولة قطر",               price:"٢,١٣٠ ر.ق", desc:"أناقة تعبّر عن عمق الهوية القطرية" },
+      bahrain: { name:"إصدار مملكة البحرين",           price:"٢٢٠ د.ب",   desc:"تصميم يتوج بهاء البحرين" },
+      oman:    { name:"إصدار سلطنة عُمان",             price:"٢٢٥ ر.ع",   desc:"جمال يستلهم من حضارة عُمان" }
+    }
+  },
+  national: {
+    baseTitle: "ساعة اليوم الوطني",
+    collection: "مجموعة الأمجاد الوطنية",
+    shape: "octagonal",
+    specs: ["حركة سويسرية أوتوماتيكية","علبة ثمانية الأوجه مصقولة","زجاج ياقوت مزدوج","مقاوم للماء حتى ٥٠ متر","سوار معدني مريح","إصدار محدود ومرقّم"],
+    countries: {
+      kuwait:  { name:"إصدار يوم الكويت الوطني",           price:"١٩٥ د.ك",   desc:"احتفاء بيوم المجد الوطني الكويتي" },
+      saudi:   { name:"إصدار اليوم الوطني للمملكة",        price:"٢,٣٨٠ ر.س", desc:"إهداء اليوم الوطني السعودي بنكهة فاخرة" },
+      uae:     { name:"إصدار اليوم الوطني الإماراتي",      price:"٢,٣٣٠ د.إ", desc:"رمز للفخر والإنجاز الإماراتي" },
+      qatar:   { name:"إصدار اليوم الوطني لقطر",           price:"٢,٣١٠ ر.ق", desc:"ساعة تُخلّد لحظات المجد القطري" },
+      bahrain: { name:"إصدار اليوم الوطني للبحرين",        price:"٢٤٠ د.ب",   desc:"تُجسّد فخر البحرين في يومها الوطني" },
+      oman:    { name:"إصدار اليوم الوطني لسلطنة عُمان",   price:"٢٤٥ ر.ع",   desc:"تكريم لتاريخ عُمان العظيم" }
+    }
+  },
+  shams: {
+    baseTitle: "ساعة شمس الوطن",
+    collection: "مجموعة شمس الوطن",
+    shape: "circular",
+    specs: ["حركة سويسرية دقيقة عالية الجودة","علبة دائرية كلاسيكية مصقولة","زجاج ياقوت مقاوم للخدش","مقاوم للماء حتى ٥٠ متر","سوار معدني مرن وخفيف","إصدار فاخر محدود"],
+    countries: {
+      kuwait:  { name:"شمس الكويت",   price:"٣٠٠ د.ك",   desc:"أبهى إصداراتنا — إلهام من شمس الخليج" },
+      saudi:   { name:"شمس المملكة",  price:"٣,٦٥٠ ر.س", desc:"ساعة ملكية بتصميم دائري كلاسيكي فاخر" },
+      uae:     { name:"شمس الإمارات", price:"٣,٥٨٠ د.إ", desc:"تألق الإمارات في تصميم دائري أيقوني" },
+      qatar:   { name:"شمس قطر",      price:"٣,٥٥٠ ر.ق", desc:"إبداع دائري يحكي قصة الطموح القطري" },
+      bahrain: { name:"شمس البحرين",  price:"٣٦٥ د.ب",   desc:"روح البحرين في قرص ذهبي ساطع" },
+      oman:    { name:"شمس عُمان",    price:"٣٧٥ ر.ع",   desc:"حكمة عُمان تشرق في كل دوران" }
+    }
+  }
+};
 
-      <p class="product-description" id="productDescription">
-        تحفة فنية تجسّد عمق التراث الكويتي بلمسة عصرية هادئة. صُممت بحرفية متناهية لتجمع بين الهيكل الأسود المطفي الفاخر والميناء المزدان بنقش هندسي دقيق لبوابة الكويت التاريخية مطلية بالذهب النقي عيار 24.
-      </p>
+// ═══════════════════════════════════════════
+//  CANVAS + STATE
+// ═══════════════════════════════════════════
+const canvas = document.getElementById('watchCanvas');
+const ctx    = canvas.getContext('2d');
 
-      <div class="selector-title">اختر إرث وطنك</div>
-      <div class="country-grid">
-        <button class="country-button active" data-country="kuwait" onclick="switchCountry('kuwait')">
-          <span class="flag">🇰🇼</span>
-          <span class="cname">الكويت</span>
-        </button>
-        <button class="country-button" data-country="saudi" onclick="switchCountry('saudi')">
-          <span class="flag">🇸🇦</span>
-          <span class="cname">السعودية</span>
-        </button>
-        <button class="country-button" data-country="uae" onclick="switchCountry('uae')">
-          <span class="flag">🇦🇪</span>
-          <span class="cname">الإمارات</span>
-        </button>
-        <button class="country-button" data-country="qatar" onclick="switchCountry('qatar')">
-          <span class="flag">🇶🇦</span>
-          <span class="cname">قطر</span>
-        </button>
-        <button class="country-button" data-country="bahrain" onclick="switchCountry('bahrain')">
-          <span class="flag">🇧🇭</span>
-          <span class="cname">البحرين</span>
-        </button>
-        <button class="country-button" data-country="oman" onclick="switchCountry('oman')">
-          <span class="flag">🇴🇲</span>
-          <span class="cname">عُمان</span>
-        </button>
-      </div>
+let currentProduct = "bawaba";
+let currentCountry = "kuwait";
+let currentShape   = "rectangular";
 
-      <ul class="specs-list">
-        <li>هيكل ستانلس ستيل 316L فائق المتانة (مات أسود مقاوم للخدش)</li>
-        <li>نقش حِرفي ثلاثي الأبعاد مطلي بالذهب النقي عيار 24</li>
-        <li>حركة ميكانيكية أوتوماتيكية فاخرة وزجاج ياقوتي مضاد للانعكاس</li>
-      </ul>
+const GOLD = '#C9A84C';
+const HANDLE = 9;  // resize handle size px
+const ROT_DIST = 28; // rotation handle distance from element top
 
-      <button class="whatsapp-cta" id="whatsappAction">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-        </svg>
-        اطلب الآن عبر واتساب
-      </button>
-      <div class="trust-line">رد فوري · توصيل آمن لجميع دول مجلس التعاون · علبة هدايا فاخرة</div>
+let dialZone = { x: 0, y: 0, w: 0, h: 0, shape: 'rect', r: 0, cx: 0, cy: 0 };
 
-      <div class="accordion-group">
-        <div class="accordion-block">
-          <button class="accordion-trigger" onclick="toggleAccordion(this)">
-            <span>المواصفات الفنية</span>
-            <span class="acc-icon">+</span>
-          </button>
-          <div class="accordion-content">
-            القطر: 42 مم · مادة الهيكل: فولاذ نقي 316L · طلاء مقاوم للخدوش · مقاومة الماء: 50 متر · زجاج ياقوتي مضاد للانعكاس · حركة أوتوماتيكية فاخرة.
-          </div>
-        </div>
-        <div class="accordion-block">
-          <button class="accordion-trigger" onclick="toggleAccordion(this)">
-            <span>التوصيل والتعبئة</span>
-            <span class="acc-icon">+</span>
-          </button>
-          <div class="accordion-content">
-            توصيل سريع مجاني وآمن بالكامل لجميع دول مجلس التعاون الخليجي. تصل الساعة داخل علبة خشبية فاخرة مبطنة بالجلد تليق باختيار النخبة.
-          </div>
-        </div>
-        <div class="accordion-block">
-          <button class="accordion-trigger" onclick="toggleAccordion(this)">
-            <span>الضمان والإرجاع</span>
-            <span class="acc-icon">+</span>
-          </button>
-          <div class="accordion-content">
-            ضمان المصنع لمدة سنتين على حركة الساعة. إمكانية الإرجاع خلال 14 يوماً من تاريخ الاستلام في حال وجود عيب مصنعي.
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
+// editor state
+const editor = {
+  text:  { content: '', x: 0, y: 0, size: 28, color: '#111111', rotation: 0, placed: false },
+  image: { bitmap: null, x: 0, y: 0, w: 90, h: 90 },
+  active: null,   // 'text' | 'image' | null
+  drag:   null    // { mode, startX, startY, origX, origY, origW, origH, origSize, origRot, cx, cy }
+};
 
-  <script>
-    const WHATSAPP_NUMBER = "96598553406";
+// undo stack (stores snapshots of editor state)
+let undoStack = [];
+const MAX_UNDO = 20;
+function pushUndo() {
+  undoStack.push({
+    text:  { ...editor.text },
+    image: { ...editor.image, bitmap: editor.image.bitmap },
+    active: editor.active
+  });
+  if (undoStack.length > MAX_UNDO) undoStack.shift();
+  document.getElementById('undoBtn').disabled = false;
+}
 
-    /* Dial background colours per country — visible in placeholder mode */
-    const DIAL_COLORS = {
-      kuwait:  "#1a3a7a",
-      saudi:   "#1a4a25",
-      uae:     "#1a1a1a",
-      qatar:   "#5a1a2a",
-      bahrain: "#8b1a2a",
-      oman:    "#1a4a35"
-    };
+// ═══════════════════════════════════════════
+//  UTILITY: roundRect polyfill
+// ═══════════════════════════════════════════
+function rr(x, y, w, h, r) {
+  if (ctx.roundRect) { ctx.beginPath(); ctx.roundRect(x, y, w, h, r); return; }
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
 
-    const DIAL_FLAGS = {
-      kuwait: "🇰🇼", saudi: "🇸🇦", uae: "🇦🇪",
-      qatar: "🇶🇦", bahrain: "🇧🇭", oman: "🇴🇲"
-    };
+// ═══════════════════════════════════════════
+//  WATCH DRAWING — RECTANGULAR
+// ═══════════════════════════════════════════
+function drawRectangularWatch() {
+  const W = canvas.width, H = canvas.height;
+  const cx = W/2, cy = H/2;
+  const strapW = 64, strapH = 126, strapR = 10;
+  const caseW = 152, caseH = 180, caseR = 14;
+  const topY = cy - caseH/2 - strapH + 16;
+  const botY = cy + caseH/2 - 16;
 
-    const DIAL_LABELS = {
-      kuwait: "KUWAIT", saudi: "KSA", uae: "UAE",
-      qatar: "QATAR", bahrain: "BAHRAIN", oman: "OMAN"
-    };
-
-    const catalog = {
-      currentProduct: "bawaba",
-      currentCountry: "kuwait",
-
-      bawaba: {
-        baseTitle: "ساعة بوابة الوطن",
-        collection: "مجموعة التراث الخليجي",
-        countries: {
-          kuwait:  { name: "إصدار دولة الكويت",            price: "١٨٠ د.ك",    desc: "تحفة فنية تجسّد عمق التراث الكويتي بلمسة عصرية هادئة. صُممت بحرفية متناهية لتجمع بين الهيكل الأسود المطفي الفاخر والميناء المزدان بنقش هندسي دقيق لبوابة الكويت التاريخية مطلية بالذهب النقي عيار 24." },
-          saudi:   { name: "إصدار المملكة العربية السعودية", price: "٢,٢٠٠ ر.س", desc: "إصدار محدود يحتفي بالإرث العريق للمملكة. يتميز الميناء بنقوش فاخرة مستوحاة من بوابات قصر المربع التاريخي تندمج بجمالية هندسية مطلية بالذهب النقي فوق الأرضية المات الفخمة." },
-          uae:     { name: "إصدار دولة الإمارات",           price: "٢,١٥٠ د.إ", desc: "توليفة ساحرة تجمع بين الأصالة والمعاصرة. يتميز هذا الإصدار بنقوش هندسية مستوحاة من قصر الحصن التاريخي في أبوظبي، تعكس قصة العراقة والرفاهية الفاخرة." },
-          qatar:   { name: "إصدار دولة قطر",                price: "٢,١٣٠ ر.ق", desc: "إصدار يعبر عن الهوية القطرية المتجذرة، بنقوش بديعة مستوحاة من بوابات وجدران قلعة الزبارة التاريخية مطعمة بالذهب الخالص لتطوق معصمك بأناقة." },
-          bahrain: { name: "إصدار مملكة البحرين",           price: "٢٢٠ د.ب",   desc: "تصميم يحتفي بعراقة المنامة وتاريخها التجاري الفريد، مستوحى من تفاصيل باب البحرين التاريخي بنقوشه الذهبية الدقيقة على خلفية الأونيكس السوداء الفخمة." },
-          oman:    { name: "إصدار سلطنة عُمان",             price: "٢٢٥ ر.ع",   desc: "تحفة مستلهمة من عظمة القلاع العمانية العتيقة، تجمع بين صلابة الفولاذ المطفي ونقش تفصيلي فخم لبوابات قلعة نزوى مطلي بذهب عيار 24 الأصيل." }
-        }
-      },
-
-      national: {
-        baseTitle: "ساعة اليوم الوطني",
-        collection: "مجموعة الأمجاد الوطنية",
-        countries: {
-          kuwait:  { name: "إصدار اليوم الوطني الكويتي",     price: "١٩٥ د.ك",    desc: "إصدار احتفالي خاص ومحدود يجسد بهجة الأمجاد والمناسبات الوطنية لدولة الكويت، مزينة برموز العزة والخط العربي الفاخر المطلية بالذهب الخالص." },
-          saudi:   { name: "إصدار اليوم الوطني السعودي",      price: "٢,٣٨٠ ر.س", desc: "ساعة تعكس الفخر والاعتزاز بالهوية السعودية والمناسبة الوطنية للمملكة، بلمسة ناصعة تجمع رمز السيفين والنخلة مدموجين بالذهب النقي مع نقش المات الفاخر." },
-          uae:     { name: "إصدار اليوم الوطني الإماراتي",    price: "٢,٣٣٠ د.إ", desc: "تحتفي بروح الاتحاد الشامخة، إصدار خاص ومحدود جداً لليوم الوطني الإماراتي يحمل تفاصيل هندسية راقية تجمع الخط العربي الاحتفالي المطلي بالذهب النقي." },
-          qatar:   { name: "إصدار اليوم الوطني القطري",       price: "٢,٣١٠ ر.ق", desc: "تصميم حِرفي نادر مخصص لليوم الوطني، يجمع فخامة الوقت وتراث الأجداد بنقوش هندسية ساحرة مطلية بذهب نقي عيار 24." },
-          bahrain: { name: "إصدار اليوم الوطني البحريني",     price: "٢٤٠ د.ب",   desc: "تجسيد لولاء وعراقة المنامة في أفراحها الوطنية، بلمسة نهائية تفيض رفاهية وتبرز الفخامة المطلقة للخط العربي المطلي بالذهب على جرم الساعة الداكن." },
-          oman:    { name: "إصدار اليوم الوطني العُماني",     price: "٢٤٥ ر.ع",   desc: "إصدار سلطاني فاخر ومحدود يحتفي بيوم عُمان المجيد، منقوش ببراعة متناهية برموز الهوية العمانية التاريخية الموشاة بالذهب والصلابة المطلقة." }
-        }
+  // Straps
+  for (const [sy, ish] of [[topY, true],[botY, false]]) {
+    ctx.save();
+    const g = ctx.createLinearGradient(cx-strapW/2,0,cx+strapW/2,0);
+    g.addColorStop(0,'#1a1a1a'); g.addColorStop(.45,'#2e2e2e'); g.addColorStop(.55,'#1a1a1a'); g.addColorStop(1,'#0d0d0d');
+    ctx.fillStyle = g;
+    rr(cx-strapW/2, sy, strapW, strapH, strapR); ctx.fill();
+    ctx.strokeStyle='#7a6440'; ctx.lineWidth=0.8; ctx.setLineDash([4,4]);
+    rr(cx-strapW/2+6, sy+6, strapW-12, strapH-12, strapR-2); ctx.stroke(); ctx.setLineDash([]);
+    if (ish) {
+      for (let i=0;i<5;i++) {
+        ctx.beginPath(); ctx.arc(cx, sy+28+i*14, 2.5, 0, Math.PI*2);
+        ctx.fillStyle='#0d0d0d'; ctx.fill();
       }
-    };
+    }
+    ctx.restore();
+  }
 
-    function renderPage() {
-      const pKey = catalog.currentProduct;
-      const cKey = catalog.currentCountry;
-      const data = catalog[pKey].countries[cKey];
+  // Case shadow+body
+  ctx.save();
+  ctx.shadowColor='rgba(0,0,0,.35)'; ctx.shadowBlur=22; ctx.shadowOffsetY=6;
+  const cg = ctx.createLinearGradient(cx-caseW/2,cy-caseH/2,cx+caseW/2,cy+caseH/2);
+  cg.addColorStop(0,'#e8e8e8'); cg.addColorStop(.3,'#c0c0c0'); cg.addColorStop(.7,'#a8a8a8'); cg.addColorStop(1,'#d0d0d0');
+  ctx.fillStyle = cg;
+  rr(cx-caseW/2, cy-caseH/2, caseW, caseH, caseR); ctx.fill();
+  ctx.restore();
+  ctx.save();
+  ctx.strokeStyle='rgba(255,255,255,.6)'; ctx.lineWidth=1.5;
+  rr(cx-caseW/2+.5,cy-caseH/2+.5,caseW-1,caseH-1,caseR); ctx.stroke();
+  ctx.strokeStyle='rgba(0,0,0,.12)'; ctx.lineWidth=1;
+  rr(cx-caseW/2+2,cy-caseH/2+2,caseW-4,caseH-4,caseR-2); ctx.stroke();
+  ctx.restore();
 
-      document.getElementById('collectionLabel').textContent  = catalog[pKey].collection;
-      document.getElementById('productTitle').textContent     = catalog[pKey].baseTitle;
-      document.getElementById('countryName').textContent      = data.name;
-      document.getElementById('productPrice').textContent     = data.price;
-      document.getElementById('productDescription').textContent = data.desc;
-      document.getElementById('editionTag').textContent       = data.name;
+  // Crown
+  ctx.save();
+  const crX=cx-caseW/2-12, crY=cy-10;
+  const cg2=ctx.createLinearGradient(crX,0,crX+12,0);
+  cg2.addColorStop(0,'#c8c8c8'); cg2.addColorStop(.5,'#e8e8e8'); cg2.addColorStop(1,'#b0b0b0');
+  ctx.fillStyle=cg2; rr(crX,crY,12,20,3); ctx.fill();
+  ctx.strokeStyle='rgba(0,0,0,.15)'; ctx.lineWidth=.8; rr(crX,crY,12,20,3); ctx.stroke();
+  for(let i=1;i<4;i++){ctx.beginPath();ctx.moveTo(crX,crY+i*5);ctx.lineTo(crX+12,crY+i*5);ctx.strokeStyle='rgba(0,0,0,.1)';ctx.lineWidth=.8;ctx.stroke();}
+  ctx.restore();
 
-      /* placeholder dial */
-      const placeholder = document.getElementById('watchPlaceholder');
-      placeholder.style.backgroundColor = DIAL_COLORS[cKey];
-      document.getElementById('dialFlag').textContent  = DIAL_FLAGS[cKey];
-      document.getElementById('dialText').textContent  = DIAL_LABELS[cKey] + " EDITION";
-      document.getElementById('dialPrice').textContent = data.price;
+  // Dial
+  const dp=18, dX=cx-caseW/2+dp, dY=cy-caseH/2+dp, dW=caseW-dp*2, dH=caseH-dp*2, dR=6;
+  ctx.save();
+  ctx.shadowColor='rgba(0,0,0,.1)'; ctx.shadowBlur=4; ctx.shadowOffsetY=1;
+  ctx.fillStyle='#FAFAFA'; rr(dX,dY,dW,dH,dR); ctx.fill();
+  ctx.restore();
+  ctx.save(); ctx.strokeStyle='rgba(0,0,0,.06)'; ctx.lineWidth=1; rr(dX+.5,dY+.5,dW-1,dH-1,dR); ctx.stroke(); ctx.restore();
 
-      /* WhatsApp message */
-      const msg = encodeURIComponent(
-        `مرحباً براند MTM، أود الاستفسار والطلب:\nالساعة: ${catalog[pKey].baseTitle}\nالإصدار: ${data.name}\nالسعر: ${data.price}`
-      );
-      document.getElementById('whatsappAction').onclick = () => {
-        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
-      };
+  // Dial labels
+  ctx.save();
+  ctx.font="500 11px 'Montserrat',sans-serif"; ctx.fillStyle=GOLD; ctx.textAlign='center';
+  ctx.fillText('MTM', cx, dY+28);
+  ctx.font="300 7px 'Montserrat',sans-serif"; ctx.fillStyle='rgba(0,0,0,.25)';
+  ctx.fillText('WATCHES', cx, dY+40);
+  ctx.restore();
 
-      /* thumbnail strip — emoji flags as stand-ins */
-      const thumbList = document.getElementById('thumbnailList');
-      thumbList.innerHTML = '';
-      const views = [
-        { icon: DIAL_FLAGS[cKey], label: "الواجهة الأمامية" },
-        { icon: "↔️",             label: "الجانب" },
-        { icon: "⬆️",             label: "التفاصيل العلوية" }
-      ];
-      views.forEach((v, i) => {
-        const box = document.createElement('div');
-        box.className = 'thumb-box' + (i === 0 ? ' active' : '');
-        box.title = v.label;
-        box.textContent = v.icon;
-        box.onclick = function () {
-          document.querySelectorAll('.thumb-box').forEach(t => t.classList.remove('active'));
-          this.classList.add('active');
-        };
-        thumbList.appendChild(box);
+  // Hour markers
+  ctx.save();
+  const mCx=dX+dW/2, mCy=dY+dH/2;
+  for(let i=0;i<12;i++){
+    const a=(i/12)*Math.PI*2-Math.PI/2;
+    const r1=Math.min(dW,dH)/2-10, r2=r1-(i%3===0?10:5);
+    ctx.beginPath(); ctx.moveTo(mCx+Math.cos(a)*r1,mCy+Math.sin(a)*r1); ctx.lineTo(mCx+Math.cos(a)*r2,mCy+Math.sin(a)*r2);
+    ctx.strokeStyle=i%3===0?'rgba(0,0,0,.3)':'rgba(0,0,0,.15)'; ctx.lineWidth=i%3===0?1.5:.8; ctx.stroke();
+  }
+  ctx.restore();
+
+  dialZone = { x:dX, y:dY, w:dW, h:dH, shape:'rect', r:dR, cx:dX+dW/2, cy:dY+dH/2 };
+}
+
+// ═══════════════════════════════════════════
+//  WATCH DRAWING — OCTAGONAL
+// ═══════════════════════════════════════════
+function drawOctagonalWatch() {
+  const W=canvas.width, H=canvas.height, cx=W/2, cy=H/2;
+  const R=112, sides=8;
+
+  function octPath(r, rot=0) {
+    ctx.beginPath();
+    for(let i=0;i<sides;i++){
+      const a=(i/sides)*Math.PI*2+rot+Math.PI/8;
+      i===0?ctx.moveTo(cx+r*Math.cos(a),cy+r*Math.sin(a)):ctx.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a));
+    }
+    ctx.closePath();
+  }
+
+  // Bracelet links helper
+  function links(startY, dir, n, w=72){
+    for(let i=0;i<n;i++){
+      const y=startY+dir*i*15;
+      const lg=ctx.createLinearGradient(cx-w/2,0,cx+w/2,0);
+      lg.addColorStop(0,'#b0b0b0'); lg.addColorStop(.3,'#e0e0e0'); lg.addColorStop(.5,'#f0f0f0'); lg.addColorStop(.7,'#d0d0d0'); lg.addColorStop(1,'#b0b0b0');
+      ctx.fillStyle=lg; rr(cx-w/2,y,w,13,3); ctx.fill();
+      ctx.strokeStyle='rgba(0,0,0,.08)'; ctx.lineWidth=.5; rr(cx-w/2,y,w,13,3); ctx.stroke();
+      if(i%2===0){ctx.beginPath();ctx.moveTo(cx,y+2);ctx.lineTo(cx,y+11);ctx.strokeStyle='rgba(0,0,0,.1)';ctx.lineWidth=.5;ctx.stroke();}
+    }
+  }
+  links(cy-R-2, -1, 9);
+  links(cy+R+2, 1, 9);
+
+  // Case
+  ctx.save();
+  ctx.shadowColor='rgba(0,0,0,.3)'; ctx.shadowBlur=20; ctx.shadowOffsetY=5;
+  const cg=ctx.createRadialGradient(cx-30,cy-30,10,cx,cy,R);
+  cg.addColorStop(0,'#e8e8e8'); cg.addColorStop(.5,'#c0c0c0'); cg.addColorStop(1,'#a8a8a8');
+  ctx.fillStyle=cg; octPath(R); ctx.fill();
+  ctx.restore();
+  ctx.save(); ctx.strokeStyle='rgba(255,255,255,.5)'; ctx.lineWidth=2; octPath(R-1); ctx.stroke(); ctx.restore();
+
+  // Gold bezel
+  ctx.save();
+  const bg=ctx.createLinearGradient(cx-R,cy-R,cx+R,cy+R);
+  bg.addColorStop(0,GOLD+'dd'); bg.addColorStop(.5,'#d4a84c'); bg.addColorStop(1,'#a07830');
+  ctx.strokeStyle=bg; ctx.lineWidth=8; octPath(R-9); ctx.stroke();
+  ctx.restore();
+
+  // Dial
+  const dr=74;
+  ctx.save(); ctx.shadowColor='rgba(0,0,0,.12)'; ctx.shadowBlur=6; ctx.shadowOffsetY=2;
+  ctx.beginPath(); ctx.arc(cx,cy,dr,0,Math.PI*2); ctx.fillStyle='#FAFAFA'; ctx.fill(); ctx.restore();
+  ctx.save(); ctx.strokeStyle='rgba(0,0,0,.06)'; ctx.lineWidth=1; ctx.beginPath(); ctx.arc(cx,cy,dr,0,Math.PI*2); ctx.stroke(); ctx.restore();
+
+  ctx.save();
+  ctx.font="500 11px 'Montserrat',sans-serif"; ctx.fillStyle=GOLD; ctx.textAlign='center';
+  ctx.fillText('MTM', cx, cy-dr/2+4);
+  ctx.font="300 7px 'Montserrat',sans-serif"; ctx.fillStyle='rgba(0,0,0,.25)';
+  ctx.fillText('WATCHES', cx, cy-dr/2+16);
+  ctx.restore();
+
+  ctx.save();
+  for(let i=0;i<12;i++){
+    const a=(i/12)*Math.PI*2-Math.PI/2, r1=dr-8, r2=r1-(i%3===0?10:5);
+    ctx.beginPath(); ctx.moveTo(cx+Math.cos(a)*r1,cy+Math.sin(a)*r1); ctx.lineTo(cx+Math.cos(a)*r2,cy+Math.sin(a)*r2);
+    ctx.strokeStyle=i%3===0?'rgba(0,0,0,.3)':'rgba(0,0,0,.15)'; ctx.lineWidth=i%3===0?1.5:.8; ctx.stroke();
+  }
+  ctx.restore();
+
+  dialZone = { x:cx-dr, y:cy-dr, w:dr*2, h:dr*2, shape:'circle', r:dr, cx, cy };
+}
+
+// ═══════════════════════════════════════════
+//  WATCH DRAWING — CIRCULAR
+// ═══════════════════════════════════════════
+function drawCircularWatch() {
+  const W=canvas.width, H=canvas.height, cx=W/2, cy=H/2;
+  const CR=110, dr=80;
+
+  function links(startY, dir, n){
+    for(let i=0;i<n;i++){
+      const y=startY+dir*i*15;
+      const lg=ctx.createLinearGradient(cx-34,0,cx+34,0);
+      lg.addColorStop(0,'#b0b0b0'); lg.addColorStop(.3,'#e0e0e0'); lg.addColorStop(.5,'#f0f0f0'); lg.addColorStop(.7,'#d0d0d0'); lg.addColorStop(1,'#b0b0b0');
+      ctx.fillStyle=lg; rr(cx-34,y,68,13,3); ctx.fill();
+      ctx.strokeStyle='rgba(0,0,0,.08)'; ctx.lineWidth=.5; rr(cx-34,y,68,13,3); ctx.stroke();
+      if(i%2===0){ctx.beginPath();ctx.moveTo(cx,y+2);ctx.lineTo(cx,y+11);ctx.strokeStyle='rgba(0,0,0,.1)';ctx.lineWidth=.5;ctx.stroke();}
+    }
+  }
+  links(cy-CR-2,-1,9);
+  links(cy+CR+2,1,9);
+
+  // Outer case
+  ctx.save();
+  ctx.shadowColor='rgba(0,0,0,.3)'; ctx.shadowBlur=22; ctx.shadowOffsetY=5;
+  const og=ctx.createRadialGradient(cx-35,cy-35,8,cx,cy,CR);
+  og.addColorStop(0,'#e8e8e8'); og.addColorStop(.6,'#c0c0c0'); og.addColorStop(1,'#a0a0a0');
+  ctx.fillStyle=og; ctx.beginPath(); ctx.arc(cx,cy,CR,0,Math.PI*2); ctx.fill();
+  ctx.restore();
+  ctx.save(); ctx.strokeStyle='rgba(255,255,255,.55)'; ctx.lineWidth=2; ctx.beginPath(); ctx.arc(cx,cy,CR-1,0,Math.PI*2); ctx.stroke(); ctx.restore();
+
+  // Gold bezel
+  ctx.save();
+  const bg=ctx.createLinearGradient(cx-CR,cy-CR,cx+CR,cy+CR);
+  bg.addColorStop(0,'#d4a84c'); bg.addColorStop(.5,'#f0c870'); bg.addColorStop(1,'#a07830');
+  ctx.strokeStyle=bg; ctx.lineWidth=9; ctx.beginPath(); ctx.arc(cx,cy,CR-7,0,Math.PI*2); ctx.stroke();
+  ctx.restore();
+
+  // Minute dots
+  ctx.save();
+  for(let i=0;i<60;i++){
+    const a=(i/60)*Math.PI*2-Math.PI/2, r=CR-13;
+    ctx.beginPath(); ctx.arc(cx+Math.cos(a)*r,cy+Math.sin(a)*r,i%5===0?1.8:.8,0,Math.PI*2);
+    ctx.fillStyle=i%5===0?'rgba(0,0,0,.4)':'rgba(0,0,0,.15)'; ctx.fill();
+  }
+  ctx.restore();
+
+  // Dial
+  ctx.save(); ctx.shadowColor='rgba(0,0,0,.1)'; ctx.shadowBlur=5; ctx.shadowOffsetY=1;
+  ctx.beginPath(); ctx.arc(cx,cy,dr,0,Math.PI*2); ctx.fillStyle='#FAFAFA'; ctx.fill();
+  ctx.restore();
+  ctx.save(); ctx.strokeStyle='rgba(0,0,0,.06)'; ctx.lineWidth=1; ctx.beginPath(); ctx.arc(cx,cy,dr,0,Math.PI*2); ctx.stroke(); ctx.restore();
+
+  ctx.save();
+  ctx.font="500 11px 'Montserrat',sans-serif"; ctx.fillStyle=GOLD; ctx.textAlign='center';
+  ctx.fillText('MTM', cx, cy-dr/2+4);
+  ctx.font="300 7px 'Montserrat',sans-serif"; ctx.fillStyle='rgba(0,0,0,.25)';
+  ctx.fillText('WATCHES', cx, cy-dr/2+16);
+  ctx.restore();
+
+  ctx.save();
+  for(let i=0;i<12;i++){
+    const a=(i/12)*Math.PI*2-Math.PI/2, r1=dr-8, r2=r1-(i%3===0?11:5);
+    ctx.beginPath(); ctx.moveTo(cx+Math.cos(a)*r1,cy+Math.sin(a)*r1); ctx.lineTo(cx+Math.cos(a)*r2,cy+Math.sin(a)*r2);
+    ctx.strokeStyle=i%3===0?'rgba(0,0,0,.3)':'rgba(0,0,0,.15)'; ctx.lineWidth=i%3===0?1.8:.8; ctx.stroke();
+  }
+  ctx.restore();
+
+  dialZone = { x:cx-dr, y:cy-dr, w:dr*2, h:dr*2, shape:'circle', r:dr, cx, cy };
+}
+
+// ═══════════════════════════════════════════
+//  DIAL HELPERS
+// ═══════════════════════════════════════════
+function dialCX() { return dialZone.shape==='circle' ? dialZone.cx : dialZone.x+dialZone.w/2; }
+function dialCY() { return dialZone.shape==='circle' ? dialZone.cy : dialZone.y+dialZone.h/2; }
+
+function clipToDial() {
+  ctx.save();
+  ctx.beginPath();
+  if (dialZone.shape==='circle') {
+    ctx.arc(dialZone.cx, dialZone.cy, dialZone.r-2, 0, Math.PI*2);
+  } else {
+    rr(dialZone.x+2, dialZone.y+2, dialZone.w-4, dialZone.h-4, dialZone.r||4);
+  }
+  ctx.clip();
+}
+
+function pointInDial(px, py) {
+  if (dialZone.shape==='circle') {
+    const dx=px-dialZone.cx, dy=py-dialZone.cy;
+    return dx*dx+dy*dy <= (dialZone.r-2)*(dialZone.r-2);
+  }
+  return px>=dialZone.x+2 && px<=dialZone.x+dialZone.w-2 && py>=dialZone.y+2 && py<=dialZone.y+dialZone.h-2;
+}
+
+function clampToDial(obj, halfW, halfH) {
+  if (dialZone.shape==='circle') {
+    const dx=obj.x-dialZone.cx, dy=obj.y-dialZone.cy, d=Math.sqrt(dx*dx+dy*dy), max=dialZone.r-6;
+    if(d>max){ obj.x=dialZone.cx+dx/d*max; obj.y=dialZone.cy+dy/d*max; }
+  } else {
+    const pad=4;
+    obj.x=Math.max(dialZone.x+pad+halfW, Math.min(dialZone.x+dialZone.w-pad-halfW, obj.x));
+    obj.y=Math.max(dialZone.y+pad+halfH, Math.min(dialZone.y+dialZone.h-pad-halfH, obj.y));
+  }
+}
+
+// ═══════════════════════════════════════════
+//  BOUNDING BOX
+// ═══════════════════════════════════════════
+function getTextBBox() {
+  const t=editor.text;
+  if(!t.content) return null;
+  ctx.save(); ctx.font=`bold ${t.size}px 'Almarai',sans-serif`;
+  const mw=ctx.measureText(t.content).width; ctx.restore();
+  const h=t.size*1.3;
+  return { x:t.x-mw/2, y:t.y-h*0.78, w:mw, h, cx:t.x, cy:t.y-h*0.78+h/2 };
+}
+function getImageBBox() {
+  const img=editor.image;
+  if(!img.bitmap) return null;
+  return { x:img.x-img.w/2, y:img.y-img.h/2, w:img.w, h:img.h, cx:img.x, cy:img.y };
+}
+
+// ═══════════════════════════════════════════
+//  SELECTION HANDLES
+// ═══════════════════════════════════════════
+const CORNERS = ['nw','ne','se','sw'];
+
+function cornerPositions(bbox) {
+  return {
+    nw:{x:bbox.x,y:bbox.y},
+    ne:{x:bbox.x+bbox.w,y:bbox.y},
+    se:{x:bbox.x+bbox.w,y:bbox.y+bbox.h},
+    sw:{x:bbox.x,y:bbox.y+bbox.h}
+  };
+}
+
+function rotHandlePos(bbox) {
+  return { x: bbox.cx, y: bbox.y - ROT_DIST };
+}
+
+function drawHandles(bbox) {
+  if(!bbox) return;
+  ctx.save();
+  // dashed selection rect
+  ctx.strokeStyle=GOLD; ctx.lineWidth=1; ctx.setLineDash([4,3]);
+  ctx.strokeRect(bbox.x, bbox.y, bbox.w, bbox.h);
+  ctx.setLineDash([]);
+  // corner handles
+  const cp=cornerPositions(bbox);
+  for(const k of CORNERS){
+    const h=cp[k];
+    ctx.fillStyle='#fff'; ctx.strokeStyle=GOLD; ctx.lineWidth=1.5;
+    ctx.fillRect(h.x-HANDLE/2, h.y-HANDLE/2, HANDLE, HANDLE);
+    ctx.strokeRect(h.x-HANDLE/2, h.y-HANDLE/2, HANDLE, HANDLE);
+  }
+  // rotation handle (circle) with line
+  const rh=rotHandlePos(bbox);
+  ctx.beginPath(); ctx.moveTo(bbox.cx, bbox.y); ctx.lineTo(rh.x, rh.y);
+  ctx.strokeStyle=GOLD; ctx.lineWidth=1; ctx.stroke();
+  ctx.beginPath(); ctx.arc(rh.x, rh.y, 6, 0, Math.PI*2);
+  ctx.fillStyle=GOLD; ctx.fill();
+  ctx.strokeStyle='#fff'; ctx.lineWidth=1.5; ctx.stroke();
+  ctx.restore();
+}
+
+function hitCorner(px, py, bbox) {
+  if(!bbox) return null;
+  const cp=cornerPositions(bbox), hs=HANDLE/2+4;
+  for(const k of CORNERS){ const h=cp[k]; if(Math.abs(px-h.x)<hs&&Math.abs(py-h.y)<hs) return k; }
+  return null;
+}
+
+function hitRotHandle(px, py, bbox) {
+  if(!bbox) return false;
+  const rh=rotHandlePos(bbox);
+  return Math.hypot(px-rh.x, py-rh.y) < 10;
+}
+
+function hitElement(px, py, type) {
+  const bbox=type==='text'?getTextBBox():getImageBBox();
+  if(!bbox) return false;
+  return px>=bbox.x-5&&px<=bbox.x+bbox.w+5&&py>=bbox.y-5&&py<=bbox.y+bbox.h+5;
+}
+
+// ═══════════════════════════════════════════
+//  REDRAW
+// ═══════════════════════════════════════════
+function redrawCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if(currentShape==='rectangular') drawRectangularWatch();
+  else if(currentShape==='octagonal') drawOctagonalWatch();
+  else drawCircularWatch();
+
+  // clip + draw editor content
+  if(editor.image.bitmap || editor.text.content) {
+    clipToDial();
+    if(editor.image.bitmap) {
+      const img=editor.image;
+      ctx.save();
+      ctx.translate(img.x, img.y);
+      ctx.drawImage(img.bitmap, -img.w/2, -img.h/2, img.w, img.h);
+      ctx.restore();
+    }
+    if(editor.text.content) {
+      const t=editor.text;
+      ctx.save();
+      ctx.translate(t.x, t.y);
+      ctx.rotate(t.rotation);
+      ctx.font=`bold ${t.size}px 'Almarai',sans-serif`;
+      ctx.fillStyle=t.color;
+      ctx.textAlign='center';
+      ctx.textBaseline='alphabetic';
+      ctx.fillText(t.content, 0, 0);
+      ctx.restore();
+    }
+    ctx.restore(); // unclip
+  }
+
+  // handles
+  if(editor.active==='text') drawHandles(getTextBBox());
+  else if(editor.active==='image') drawHandles(getImageBBox());
+}
+
+// ═══════════════════════════════════════════
+//  POINTER UTILITIES
+// ═══════════════════════════════════════════
+function canvasPos(e) {
+  const rect=canvas.getBoundingClientRect();
+  const sx=canvas.width/rect.width, sy=canvas.height/rect.height;
+  const src=e.touches?e.touches[0]:e;
+  return { x:(src.clientX-rect.left)*sx, y:(src.clientY-rect.top)*sy };
+}
+
+// ═══════════════════════════════════════════
+//  DRAG / RESIZE / ROTATE
+// ═══════════════════════════════════════════
+function onPointerDown(e) {
+  e.preventDefault();
+  const {x:px, y:py}=canvasPos(e);
+
+  if(editor.active) {
+    const bbox=editor.active==='text'?getTextBBox():getImageBBox();
+    // rotation handle
+    if(hitRotHandle(px, py, bbox)) {
+      const obj=editor.active==='text'?editor.text:editor.image;
+      pushUndo();
+      editor.drag={ mode:'rotate', startX:px, startY:py, origRot:obj.rotation||0, cx:bbox.cx, cy:bbox.cy };
+      return;
+    }
+    // corner resize
+    const corner=hitCorner(px,py,bbox);
+    if(corner) {
+      const obj=editor.active==='text'?editor.text:editor.image;
+      pushUndo();
+      editor.drag={ mode:'resize', startX:px, startY:py, origX:obj.x, origY:obj.y,
+        origW:editor.image.w, origH:editor.image.h, origSize:editor.text.size, origBbox:{...bbox}, corner };
+      return;
+    }
+    // move active element
+    if(hitElement(px,py,editor.active)) {
+      const obj=editor.active==='text'?editor.text:editor.image;
+      pushUndo();
+      editor.drag={ mode:'move', startX:px, startY:py, origX:obj.x, origY:obj.y };
+      return;
+    }
+  }
+
+  // try to select
+  for(const type of ['image','text']) {
+    if(hitElement(px,py,type)) {
+      editor.active=type;
+      const obj=type==='text'?editor.text:editor.image;
+      pushUndo();
+      editor.drag={ mode:'move', startX:px, startY:py, origX:obj.x, origY:obj.y };
+      redrawCanvas(); return;
+    }
+  }
+  // deselect
+  if(pointInDial(px,py)) { editor.active=null; redrawCanvas(); }
+}
+
+function onPointerMove(e) {
+  if(!editor.drag) return;
+  e.preventDefault();
+  const {x:px,y:py}=canvasPos(e);
+  const dx=px-editor.drag.startX, dy=py-editor.drag.startY;
+  const d=editor.drag;
+
+  if(d.mode==='rotate') {
+    const angle=Math.atan2(py-d.cy, px-d.cx);
+    const startAngle=Math.atan2(d.startY-d.cy, d.startX-d.cx);
+    const obj=editor.active==='text'?editor.text:editor.image;
+    obj.rotation=(d.origRot||0)+(angle-startAngle);
+  } else if(d.mode==='resize') {
+    const signX=(d.corner==='ne'||d.corner==='se')?1:-1;
+    const signY=(d.corner==='se'||d.corner==='sw')?1:-1;
+    const delta=(dx*signX+dy*signY)/2;
+    if(editor.active==='image') {
+      editor.image.w=Math.max(20, d.origW+delta);
+      editor.image.h=Math.max(20, d.origH+delta);
+    } else {
+      editor.text.size=Math.max(10, Math.min(96, d.origSize+delta));
+      document.getElementById('sizeRange').value=Math.round(editor.text.size);
+      document.getElementById('sizeVal').textContent=Math.round(editor.text.size)+'px';
+    }
+  } else if(d.mode==='move') {
+    const obj=editor.active==='text'?editor.text:editor.image;
+    obj.x=d.origX+dx; obj.y=d.origY+dy;
+    const bbox=editor.active==='text'?getTextBBox():getImageBBox();
+    if(bbox) clampToDial(obj, bbox.w/2, bbox.h/2);
+  }
+  redrawCanvas();
+}
+
+function onPointerUp() { editor.drag=null; }
+
+canvas.addEventListener('mousedown',  onPointerDown);
+canvas.addEventListener('mousemove',  onPointerMove);
+canvas.addEventListener('mouseup',    onPointerUp);
+canvas.addEventListener('mouseleave', onPointerUp);
+canvas.addEventListener('touchstart', onPointerDown, {passive:false});
+canvas.addEventListener('touchmove',  onPointerMove, {passive:false});
+canvas.addEventListener('touchend',   onPointerUp);
+
+// cursor feedback
+canvas.addEventListener('mousemove', (e) => {
+  if(editor.drag) return;
+  const {x:px,y:py}=canvasPos(e);
+  if(editor.active) {
+    const bbox=editor.active==='text'?getTextBBox():getImageBBox();
+    if(hitRotHandle(px,py,bbox)) { canvas.style.cursor='crosshair'; return; }
+    if(hitCorner(px,py,bbox)) { canvas.style.cursor='nwse-resize'; return; }
+    if(hitElement(px,py,editor.active)) { canvas.style.cursor='move'; return; }
+  }
+  for(const t of ['image','text']) { if(hitElement(px,py,t)) { canvas.style.cursor='move'; return; } }
+  canvas.style.cursor='default';
+});
+
+// ═══════════════════════════════════════════
+//  CONTROLS
+// ═══════════════════════════════════════════
+const textInput   = document.getElementById('textInput');
+const colorPicker = document.getElementById('colorPicker');
+const colorHex    = document.getElementById('colorHex');
+const sizeRange   = document.getElementById('sizeRange');
+const sizeVal     = document.getElementById('sizeVal');
+const tip         = document.getElementById('customizerTip');
+
+textInput.addEventListener('input', () => {
+  editor.text.content=textInput.value;
+  if(editor.text.content && !editor.text.placed) {
+    editor.text.x=dialCX(); editor.text.y=dialCY()+8;
+    editor.text.placed=true; editor.active='text';
+    tip.textContent='✨ الآن اسحب النص داخل المينا وكبّره من الأركان أو دوّره بالدائرة الذهبية';
+    tip.classList.add('highlight');
+    setTimeout(()=>tip.classList.remove('highlight'),3000);
+  }
+  if(!editor.text.content){ editor.text.placed=false; if(editor.active==='text') editor.active=null; }
+  redrawCanvas();
+});
+
+colorPicker.addEventListener('input', () => {
+  editor.text.color=colorPicker.value;
+  colorHex.textContent=colorPicker.value.toUpperCase();
+  redrawCanvas();
+});
+
+sizeRange.addEventListener('input', () => {
+  editor.text.size=+sizeRange.value;
+  sizeVal.textContent=sizeRange.value+'px';
+  redrawCanvas();
+});
+
+document.getElementById('clearTextBtn').addEventListener('click', () => {
+  pushUndo();
+  editor.text.content=''; editor.text.placed=false; editor.text.rotation=0;
+  textInput.value='';
+  if(editor.active==='text') editor.active=null;
+  redrawCanvas();
+});
+
+document.getElementById('imageFileInput').addEventListener('change', (e) => {
+  const file=e.target.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=(ev) => {
+    const img=new Image();
+    img.onload=() => {
+      createImageBitmap(img).then(bmp => {
+        pushUndo();
+        editor.image.bitmap=bmp;
+        editor.image.x=dialCX(); editor.image.y=dialCY();
+        const maxSide=Math.min(dialZone.w,dialZone.h)*0.55;
+        const asp=bmp.width/bmp.height;
+        if(asp>=1){editor.image.w=maxSide;editor.image.h=maxSide/asp;}
+        else{editor.image.h=maxSide;editor.image.w=maxSide*asp;}
+        editor.active='image';
+        tip.textContent='✨ الصورة جاهزة — اسحبها للموضع المناسب وكبّرها من الأركان';
+        tip.classList.add('highlight');
+        setTimeout(()=>tip.classList.remove('highlight'),3000);
+        redrawCanvas();
       });
-    }
+    };
+    img.src=ev.target.result;
+  };
+  reader.readAsDataURL(file);
+  e.target.value='';
+});
 
-    function switchProduct(pKey) {
-      catalog.currentProduct = pKey;
-      document.querySelectorAll('.switcher-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById(`tab-${pKey}`).classList.add('active');
-      renderPage();
-    }
+document.getElementById('clearImageBtn').addEventListener('click', () => {
+  pushUndo();
+  editor.image.bitmap=null;
+  if(editor.active==='image') editor.active=null;
+  redrawCanvas();
+});
 
-    function switchCountry(cKey) {
-      catalog.currentCountry = cKey;
-      document.querySelectorAll('.country-button').forEach(b => b.classList.remove('active'));
-      const btn = document.querySelector(`.country-button[data-country="${cKey}"]`);
-      if (btn) btn.classList.add('active');
-      renderPage();
-    }
+// ─── Undo ───
+document.getElementById('undoBtn').addEventListener('click', () => {
+  if(!undoStack.length) return;
+  const snap=undoStack.pop();
+  Object.assign(editor.text, snap.text);
+  Object.assign(editor.image, snap.image);
+  editor.active=snap.active;
+  textInput.value=editor.text.content;
+  colorPicker.value=editor.text.color;
+  colorHex.textContent=editor.text.color.toUpperCase();
+  sizeRange.value=Math.round(editor.text.size);
+  sizeVal.textContent=Math.round(editor.text.size)+'px';
+  document.getElementById('undoBtn').disabled=undoStack.length===0;
+  redrawCanvas();
+});
 
-    function toggleAccordion(trigger) {
-      const content = trigger.nextElementSibling;
-      const isOpen = content.classList.contains('open');
-      /* close all */
-      document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('open'));
-      document.querySelectorAll('.accordion-trigger').forEach(t => t.classList.remove('open'));
-      if (!isOpen) {
-        content.classList.add('open');
-        trigger.classList.add('open');
-      }
-    }
+// ─── Download Preview ───
+document.getElementById('downloadPreviewBtn').addEventListener('click', () => {
+  const link=document.createElement('a');
+  link.href=canvas.toDataURL('image/png');
+  link.download='mtm-design-preview.png';
+  link.click();
+});
 
-    renderPage();
-  </script>
+// ═══════════════════════════════════════════
+//  WHATSAPP
+// ═══════════════════════════════════════════
+document.getElementById('btnSendDesign').addEventListener('click', () => {
+  const prod=catalog[currentProduct];
+  const c=prod.countries[currentCountry];
+  const colorNote=editor.text.content ? `لون النص: ${editor.text.color.toUpperCase()}. ` : '';
+  const msg=`مرحباً MTM، أريد طلب ${prod.baseTitle} — ${c.name} بسعر ${c.price} مع تصميمي المخصص على المينا. ${colorNote}سأرفق صورة التصميم.`;
+  const link=document.createElement('a');
+  link.href=canvas.toDataURL('image/png'); link.download='mtm-design.png'; link.click();
+  setTimeout(()=>window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`,'_blank'),450);
+});
+
+document.getElementById('btnDirectContact').addEventListener('click', () => {
+  const prod=catalog[currentProduct], c=prod.countries[currentCountry];
+  const msg=`مرحباً MTM، أريد الاستفسار عن ${prod.baseTitle} — ${c.name} بسعر ${c.price}.`;
+  window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`,'_blank');
+});
+
+// ═══════════════════════════════════════════
+//  UI UPDATES
+// ═══════════════════════════════════════════
+function updateUI() {
+  const prod=catalog[currentProduct], c=prod.countries[currentCountry];
+  document.getElementById('productCollection').textContent=prod.collection;
+  document.getElementById('productTitle').textContent=prod.baseTitle;
+  document.getElementById('productSubtitle').textContent=c.name+' — إصدار محدود';
+  document.getElementById('priceValue').textContent=c.price;
+  document.getElementById('countryDesc').textContent=c.desc;
+  document.getElementById('specsList').innerHTML=prod.specs.map(s=>`<li>${s}</li>`).join('');
+  document.querySelectorAll('.country-btn').forEach(b=>b.classList.toggle('active',b.dataset.country===currentCountry));
+}
+
+function setShape(shape) {
+  currentShape=shape;
+  document.querySelectorAll('.shape-btn').forEach(b=>b.classList.toggle('active',b.dataset.shape===shape));
+  redrawCanvas();
+  // re-centre placed elements
+  if(editor.text.placed){ editor.text.x=dialCX(); editor.text.y=dialCY()+8; }
+  if(editor.image.bitmap){ editor.image.x=dialCX(); editor.image.y=dialCY(); }
+  redrawCanvas();
+}
+
+// ═══════════════════════════════════════════
+//  PRODUCT TABS
+// ═══════════════════════════════════════════
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    currentProduct=btn.dataset.product;
+    setShape(catalog[currentProduct].shape);
+    updateUI();
+  });
+});
+
+// ─── Country buttons ───
+document.querySelectorAll('.country-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{ currentCountry=btn.dataset.country; updateUI(); });
+});
+
+// ─── Shape selector ───
+document.querySelectorAll('.shape-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>setShape(btn.dataset.shape));
+});
+
+// ─── Accordion ───
+document.querySelectorAll('.accordion-trigger').forEach(t=>{
+  t.addEventListener('click', ()=>{
+    const el=document.getElementById(t.dataset.target), open=el.classList.contains('open');
+    el.classList.toggle('open',!open); t.setAttribute('aria-expanded',String(!open));
+  });
+});
+
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
+setShape('rectangular');
+updateUI();
+</script>
 </body>
 </html>
