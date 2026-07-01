@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MTM Watches | المجموعات الحصرية</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700&family=Montserrat:wght@200;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand-gold: #C9A84C;
+      --pure-white: #ffffff;
+      --soft-white: #fbfbfb;
+      --dark-charcoal: #111111;
+      --text-muted: #777777;
+      --border-color: #eeeeee;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Almarai', 'Montserrat', sans-serif;
+      background-color: var(--pure-white);
+      color: var(--dark-charcoal);
+      direction: rtl;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header {
+      padding: 30px 40px;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--pure-white);
+    }
+    .brand-logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 6px;
+      color: var(--dark-charcoal);
+      font-family: 'Montserrat', sans-serif;
+    }
+    .brand-tagline {
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 200;
+      text-transform: uppercase;
+    }
+
+    .product-switcher {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      max-width: 520px;
+      margin: 44px auto 10px auto;
+      border: 1px solid var(--border-color);
+    }
+    .switcher-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      border-left: 1px solid var(--border-color);
+      padding: 16px 20px;
+      font-family: 'Almarai', sans-serif;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.25s ease;
+      font-weight: 400;
+    }
+    .switcher-btn:last-child { border-left: none; }
+    .switcher-btn.active {
+      background: var(--dark-charcoal);
+      color: var(--pure-white);
+      font-weight: 700;
+    }
+
+    .main-container {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 1360px;
+      margin: 28px auto 100px auto;
+      padding: 0 48px;
+      gap: 80px;
+      align-items: flex-start;
+    }
+
+    /* ── Gallery ── */
+    .gallery-section {
+      flex: 1 1 46%;
+      min-width: 300px;
+      position: sticky;
+      top: 40px;
+    }
+
+    .main-image-wrapper {
+      background-color: var(--soft-white);
+      border: 1px solid var(--border-color);
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* placeholder watch face shown when no real image is loaded */
+    .watch-placeholder {
+      width: 70%;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: background-color 0.4s ease;
+      border: 3px solid rgba(255,255,255,0.15);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+    }
+    .watch-placeholder .dial-flag {
+      font-size: 3.5rem;
+      line-height: 1;
+    }
+    .watch-placeholder .dial-text {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.85);
+      font-family: 'Montserrat', sans-serif;
+      text-align: center;
+    }
+    .watch-placeholder .dial-price {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--brand-gold);
+      font-family: 'Almarai', sans-serif;
+    }
+
+    .edition-tag {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      background: rgba(255,255,255,0.92);
+      color: var(--dark-charcoal);
+      border: 1px solid var(--dark-charcoal);
+      padding: 5px 12px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .thumbnails-wrapper {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .thumb-box {
+      width: 76px;
+      height: 76px;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      opacity: 0.45;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      background: var(--soft-white);
+      flex-shrink: 0;
+    }
+    .thumb-box.active, .thumb-box:hover {
+      border-color: var(--dark-charcoal);
+      opacity: 1;
+    }
+
+    /* ── Info ── */
+    .info-section {
+      flex: 1 1 40%;
+      min-width: 300px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-collection {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--brand-gold);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .product-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--dark-charcoal);
+      margin-bottom: 4px;
+      line-height: 1.1;
+    }
+    .product-subtitle {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      font-weight: 300;
+    }
+    .product-price {
+      font-size: 2rem;
+      color: var(--dark-charcoal);
+      margin-bottom: 6px;
+      font-weight: 700;
+      font-family: 'Almarai', sans-serif;
+    }
+    .price-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      font-weight: 300;
+    }
+    .product-description {
+      line-height: 1.85;
+      color: #444444;
+      font-size: 0.9rem;
+      margin-bottom: 36px;
+      font-weight: 300;
+      border-right: 2px solid var(--border-color);
+      padding-right: 16px;
+    }
+
+    .selector-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--dark-charcoal);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .country-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 38px;
+    }
+    .country-button {
+      background: var(--pure-white);
+      border: 1px solid var(--border-color);
+      padding: 13px 10px;
+      font-family: 'Almarai', sans-serif;
+      font-size: 0.82rem;
+      color: var(--dark-charcoal);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      line-height: 1.4;
+    }
+    .country-button:hover { border-color: var(--dark-charcoal); }
+    .country-button.active {
+      background: var(--dark-charcoal);
+      color: var(--pure-white);
+      border-color: var(--dark-charcoal);
+      font-weight: 700;
+    }
+    .country-button .flag { display: block; font-size: 1.2rem; margin-bottom: 3px; }
+    .country-button .cname { display: block; }
+
+    .specs-list {
+      list-style: none;
+      margin-bottom: 36px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 26px;
+    }
+    .specs-list li {
+      margin-bottom: 11px;
+      font-size: 0.88rem;
+      color: #555555;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-weight: 300;
+      line-height: 1.5;
+    }
+    .specs-list li::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      background-color: var(--brand-gold);
+      display: inline-block;
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    .whatsapp-cta {
+      width: 100%;
+      padding: 20px;
+      background: var(--dark-charcoal);
+      color: var(--pure-white);
+      border: none;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 14px;
+      letter-spacing: 1.5px;
+      font-family: 'Almarai', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .whatsapp-cta:hover {
+      background: var(--brand-gold);
+      color: var(--dark-charcoal);
+    }
+    .whatsapp-cta svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .trust-line {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 36px;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+    }
+
+    .accordion-group { border-top: 1px solid var(--border-color); }
+    .accordion-block { border-bottom: 1px solid var(--border-color); }
+    .accordion-trigger {
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: right;
+      padding: 18px 0;
+      font-size: 0.9rem;
+      color: var(--dark-charcoal);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Almarai', sans-serif;
+      font-weight: 400;
+    }
+    .accordion-trigger .acc-icon {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+    .accordion-trigger.open .acc-icon { transform: rotate(45deg); }
+    .accordion-content {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      color: var(--text-muted);
+      line-height: 1.75;
+      font-size: 0.85rem;
+      font-weight: 300;
+    }
+    .accordion-content.open {
+      max-height: 200px;
+      padding-bottom: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .main-container { flex-direction: column; padding: 20px; gap: 32px; }
+      .gallery-section { position: static; }
+      .product-title { font-size: 1.8rem; }
+      .country-grid { grid-template-columns: repeat(3, 1fr); }
+      header { padding: 22px 20px; }
+    }
+    @media (max-width: 480px) {
+      .country-grid { grid-template-columns: repeat(2, 1fr); }
+      .product-switcher { max-width: 100%; margin: 28px 20px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand-logo">MTM</div>
+    <div class="brand-tagline">Made To Match · Luxury Timepieces</div>
+  </header>
+
+  <div class="product-switcher">
+    <button class="switcher-btn active" id="tab-bawaba" onclick="switchProduct('bawaba')">ساعة بوابة الوطن</button>
+    <button class="switcher-btn" id="tab-national" onclick="switchProduct('national')">ساعة اليوم الوطني</button>
+  </div>
+
+  <main class="main-container">
+
+    <div class="gallery-section">
+      <div class="main-image-wrapper" id="mainImageWrapper">
+        <div class="watch-placeholder" id="watchPlaceholder">
+          <span class="dial-flag" id="dialFlag">🇰🇼</span>
+          <span class="dial-text" id="dialText">KUWAIT EDITION</span>
+          <span class="dial-price" id="dialPrice">١٨٠ د.ك</span>
+        </div>
+        <span class="edition-tag" id="editionTag">إصدار دولة الكويت</span>
+      </div>
+      <div class="thumbnails-wrapper" id="thumbnailList"></div>
+    </div>
+
+    <div class="info-section">
+      <div class="product-collection" id="collectionLabel">مجموعة التراث الخليجي</div>
+      <h1 class="product-title" id="productTitle">ساعة بوابة الوطن</h1>
+      <p class="product-subtitle" id="countryName">إصدار دولة الكويت</p>
+      <div class="product-price" id="productPrice">١٨٠ د.ك</div>
+      <div class="price-note">شامل ضريبة القيمة المضافة · توصيل مجاني</div>
+
+      <p class="product-description" id="productDescription">
+        تحفة فنية تجسّد عمق التراث الكويتي بلمسة عصرية هادئة. صُممت بحرفية متناهية لتجمع بين الهيكل الأسود المطفي الفاخر والميناء المزدان بنقش هندسي دقيق لبوابة الكويت التاريخية مطلية بالذهب النقي عيار 24.
+      </p>
+
+      <div class="selector-title">اختر إرث وطنك</div>
+      <div class="country-grid">
+        <button class="country-button active" data-country="kuwait" onclick="switchCountry('kuwait')">
+          <span class="flag">🇰🇼</span>
+          <span class="cname">الكويت</span>
+        </button>
+        <button class="country-button" data-country="saudi" onclick="switchCountry('saudi')">
+          <span class="flag">🇸🇦</span>
+          <span class="cname">السعودية</span>
+        </button>
+        <button class="country-button" data-country="uae" onclick="switchCountry('uae')">
+          <span class="flag">🇦🇪</span>
+          <span class="cname">الإمارات</span>
+        </button>
+        <button class="country-button" data-country="qatar" onclick="switchCountry('qatar')">
+          <span class="flag">🇶🇦</span>
+          <span class="cname">قطر</span>
+        </button>
+        <button class="country-button" data-country="bahrain" onclick="switchCountry('bahrain')">
+          <span class="flag">🇧🇭</span>
+          <span class="cname">البحرين</span>
+        </button>
+        <button class="country-button" data-country="oman" onclick="switchCountry('oman')">
+          <span class="flag">🇴🇲</span>
+          <span class="cname">عُمان</span>
+        </button>
+      </div>
+
+      <ul class="specs-list">
+        <li>هيكل ستانلس ستيل 316L فائق المتانة (مات أسود مقاوم للخدش)</li>
+        <li>نقش حِرفي ثلاثي الأبعاد مطلي بالذهب النقي عيار 24</li>
+        <li>حركة ميكانيكية أوتوماتيكية فاخرة وزجاج ياقوتي مضاد للانعكاس</li>
+      </ul>
+
+      <button class="whatsapp-cta" id="whatsappAction">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        اطلب الآن عبر واتساب
+      </button>
+      <div class="trust-line">رد فوري · توصيل آمن لجميع دول مجلس التعاون · علبة هدايا فاخرة</div>
+
+      <div class="accordion-group">
+        <div class="accordion-block">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            <span>المواصفات الفنية</span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="accordion-content">
+            القطر: 42 مم · مادة الهيكل: فولاذ نقي 316L · طلاء مقاوم للخدوش · مقاومة الماء: 50 متر · زجاج ياقوتي مضاد للانعكاس · حركة أوتوماتيكية فاخرة.
+          </div>
+        </div>
+        <div class="accordion-block">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            <span>التوصيل والتعبئة</span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="accordion-content">
+            توصيل سريع مجاني وآمن بالكامل لجميع دول مجلس التعاون الخليجي. تصل الساعة داخل علبة خشبية فاخرة مبطنة بالجلد تليق باختيار النخبة.
+          </div>
+        </div>
+        <div class="accordion-block">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            <span>الضمان والإرجاع</span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="accordion-content">
+            ضمان المصنع لمدة سنتين على حركة الساعة. إمكانية الإرجاع خلال 14 يوماً من تاريخ الاستلام في حال وجود عيب مصنعي.
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const WHATSAPP_NUMBER = "96598553406";
+
+    /* Dial background colours per country — visible in placeholder mode */
+    const DIAL_COLORS = {
+      kuwait:  "#1a3a7a",
+      saudi:   "#1a4a25",
+      uae:     "#1a1a1a",
+      qatar:   "#5a1a2a",
+      bahrain: "#8b1a2a",
+      oman:    "#1a4a35"
+    };
+
+    const DIAL_FLAGS = {
+      kuwait: "🇰🇼", saudi: "🇸🇦", uae: "🇦🇪",
+      qatar: "🇶🇦", bahrain: "🇧🇭", oman: "🇴🇲"
+    };
+
+    const DIAL_LABELS = {
+      kuwait: "KUWAIT", saudi: "KSA", uae: "UAE",
+      qatar: "QATAR", bahrain: "BAHRAIN", oman: "OMAN"
+    };
+
+    const catalog = {
+      currentProduct: "bawaba",
+      currentCountry: "kuwait",
+
+      bawaba: {
+        baseTitle: "ساعة بوابة الوطن",
+        collection: "مجموعة التراث الخليجي",
+        countries: {
+          kuwait:  { name: "إصدار دولة الكويت",            price: "١٨٠ د.ك",    desc: "تحفة فنية تجسّد عمق التراث الكويتي بلمسة عصرية هادئة. صُممت بحرفية متناهية لتجمع بين الهيكل الأسود المطفي الفاخر والميناء المزدان بنقش هندسي دقيق لبوابة الكويت التاريخية مطلية بالذهب النقي عيار 24." },
+          saudi:   { name: "إصدار المملكة العربية السعودية", price: "٢,٢٠٠ ر.س", desc: "إصدار محدود يحتفي بالإرث العريق للمملكة. يتميز الميناء بنقوش فاخرة مستوحاة من بوابات قصر المربع التاريخي تندمج بجمالية هندسية مطلية بالذهب النقي فوق الأرضية المات الفخمة." },
+          uae:     { name: "إصدار دولة الإمارات",           price: "٢,١٥٠ د.إ", desc: "توليفة ساحرة تجمع بين الأصالة والمعاصرة. يتميز هذا الإصدار بنقوش هندسية مستوحاة من قصر الحصن التاريخي في أبوظبي، تعكس قصة العراقة والرفاهية الفاخرة." },
+          qatar:   { name: "إصدار دولة قطر",                price: "٢,١٣٠ ر.ق", desc: "إصدار يعبر عن الهوية القطرية المتجذرة، بنقوش بديعة مستوحاة من بوابات وجدران قلعة الزبارة التاريخية مطعمة بالذهب الخالص لتطوق معصمك بأناقة." },
+          bahrain: { name: "إصدار مملكة البحرين",           price: "٢٢٠ د.ب",   desc: "تصميم يحتفي بعراقة المنامة وتاريخها التجاري الفريد، مستوحى من تفاصيل باب البحرين التاريخي بنقوشه الذهبية الدقيقة على خلفية الأونيكس السوداء الفخمة." },
+          oman:    { name: "إصدار سلطنة عُمان",             price: "٢٢٥ ر.ع",   desc: "تحفة مستلهمة من عظمة القلاع العمانية العتيقة، تجمع بين صلابة الفولاذ المطفي ونقش تفصيلي فخم لبوابات قلعة نزوى مطلي بذهب عيار 24 الأصيل." }
+        }
+      },
+
+      national: {
+        baseTitle: "ساعة اليوم الوطني",
+        collection: "مجموعة الأمجاد الوطنية",
+        countries: {
+          kuwait:  { name: "إصدار اليوم الوطني الكويتي",     price: "١٩٥ د.ك",    desc: "إصدار احتفالي خاص ومحدود يجسد بهجة الأمجاد والمناسبات الوطنية لدولة الكويت، مزينة برموز العزة والخط العربي الفاخر المطلية بالذهب الخالص." },
+          saudi:   { name: "إصدار اليوم الوطني السعودي",      price: "٢,٣٨٠ ر.س", desc: "ساعة تعكس الفخر والاعتزاز بالهوية السعودية والمناسبة الوطنية للمملكة، بلمسة ناصعة تجمع رمز السيفين والنخلة مدموجين بالذهب النقي مع نقش المات الفاخر." },
+          uae:     { name: "إصدار اليوم الوطني الإماراتي",    price: "٢,٣٣٠ د.إ", desc: "تحتفي بروح الاتحاد الشامخة، إصدار خاص ومحدود جداً لليوم الوطني الإماراتي يحمل تفاصيل هندسية راقية تجمع الخط العربي الاحتفالي المطلي بالذهب النقي." },
+          qatar:   { name: "إصدار اليوم الوطني القطري",       price: "٢,٣١٠ ر.ق", desc: "تصميم حِرفي نادر مخصص لليوم الوطني، يجمع فخامة الوقت وتراث الأجداد بنقوش هندسية ساحرة مطلية بذهب نقي عيار 24." },
+          bahrain: { name: "إصدار اليوم الوطني البحريني",     price: "٢٤٠ د.ب",   desc: "تجسيد لولاء وعراقة المنامة في أفراحها الوطنية، بلمسة نهائية تفيض رفاهية وتبرز الفخامة المطلقة للخط العربي المطلي بالذهب على جرم الساعة الداكن." },
+          oman:    { name: "إصدار اليوم الوطني العُماني",     price: "٢٤٥ ر.ع",   desc: "إصدار سلطاني فاخر ومحدود يحتفي بيوم عُمان المجيد، منقوش ببراعة متناهية برموز الهوية العمانية التاريخية الموشاة بالذهب والصلابة المطلقة." }
+        }
+      }
+    };
+
+    function renderPage() {
+      const pKey = catalog.currentProduct;
+      const cKey = catalog.currentCountry;
+      const data = catalog[pKey].countries[cKey];
+
+      document.getElementById('collectionLabel').textContent  = catalog[pKey].collection;
+      document.getElementById('productTitle').textContent     = catalog[pKey].baseTitle;
+      document.getElementById('countryName').textContent      = data.name;
+      document.getElementById('productPrice').textContent     = data.price;
+      document.getElementById('productDescription').textContent = data.desc;
+      document.getElementById('editionTag').textContent       = data.name;
+
+      /* placeholder dial */
+      const placeholder = document.getElementById('watchPlaceholder');
+      placeholder.style.backgroundColor = DIAL_COLORS[cKey];
+      document.getElementById('dialFlag').textContent  = DIAL_FLAGS[cKey];
+      document.getElementById('dialText').textContent  = DIAL_LABELS[cKey] + " EDITION";
+      document.getElementById('dialPrice').textContent = data.price;
+
+      /* WhatsApp message */
+      const msg = encodeURIComponent(
+        `مرحباً براند MTM، أود الاستفسار والطلب:\nالساعة: ${catalog[pKey].baseTitle}\nالإصدار: ${data.name}\nالسعر: ${data.price}`
+      );
+      document.getElementById('whatsappAction').onclick = () => {
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+      };
+
+      /* thumbnail strip — emoji flags as stand-ins */
+      const thumbList = document.getElementById('thumbnailList');
+      thumbList.innerHTML = '';
+      const views = [
+        { icon: DIAL_FLAGS[cKey], label: "الواجهة الأمامية" },
+        { icon: "↔️",             label: "الجانب" },
+        { icon: "⬆️",             label: "التفاصيل العلوية" }
+      ];
+      views.forEach((v, i) => {
+        const box = document.createElement('div');
+        box.className = 'thumb-box' + (i === 0 ? ' active' : '');
+        box.title = v.label;
+        box.textContent = v.icon;
+        box.onclick = function () {
+          document.querySelectorAll('.thumb-box').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+        };
+        thumbList.appendChild(box);
+      });
+    }
+
+    function switchProduct(pKey) {
+      catalog.currentProduct = pKey;
+      document.querySelectorAll('.switcher-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(`tab-${pKey}`).classList.add('active');
+      renderPage();
+    }
+
+    function switchCountry(cKey) {
+      catalog.currentCountry = cKey;
+      document.querySelectorAll('.country-button').forEach(b => b.classList.remove('active'));
+      const btn = document.querySelector(`.country-button[data-country="${cKey}"]`);
+      if (btn) btn.classList.add('active');
+      renderPage();
+    }
+
+    function toggleAccordion(trigger) {
+      const content = trigger.nextElementSibling;
+      const isOpen = content.classList.contains('open');
+      /* close all */
+      document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('open'));
+      document.querySelectorAll('.accordion-trigger').forEach(t => t.classList.remove('open'));
+      if (!isOpen) {
+        content.classList.add('open');
+        trigger.classList.add('open');
+      }
+    }
+
+    renderPage();
+  </script>
+</body>
+</html>
