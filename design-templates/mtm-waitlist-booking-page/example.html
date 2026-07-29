@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MTM | دفعة هذا الشهر</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700&family=Montserrat:wght@200;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand-gold: #C9A84C;
+      --pure-white: #ffffff;
+      --soft-white: #fbfbfb;
+      --dark-charcoal: #111111;
+      --text-muted: #777777;
+      --border-color: #eeeeee;
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Almarai', 'Segoe UI', Tahoma, sans-serif;
+      background-color: var(--pure-white);
+      color: var(--dark-charcoal);
+      direction: rtl;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header {
+      padding: 30px 40px;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .brand-logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 6px;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .brand-tagline {
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 200;
+      text-transform: uppercase;
+    }
+
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 28px 100px; }
+
+    /* ── حالة الدفعة ── */
+    .batch-state {
+      margin-top: 56px;
+      border: 1px solid var(--border-color);
+      padding: 42px 38px;
+      text-align: center;
+      background: var(--soft-white);
+    }
+    .state-label {
+      font-size: 0.68rem;
+      letter-spacing: 3px;
+      font-family: 'Montserrat', sans-serif;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .state-headline {
+      font-size: 1.55rem;
+      font-weight: 700;
+      margin-top: 14px;
+      line-height: 1.5;
+    }
+    .state-sub { color: var(--text-muted); font-size: 0.92rem; margin-top: 12px; line-height: 1.8; }
+
+    .counter {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 3.6rem;
+      font-weight: 200;
+      margin-top: 26px;
+      letter-spacing: 2px;
+    }
+    .counter .of { color: var(--text-muted); font-size: 1.5rem; }
+    .counter-note { font-size: 0.78rem; color: var(--text-muted); margin-top: 6px; }
+
+    .meter {
+      height: 3px;
+      background: var(--border-color);
+      margin: 26px auto 0;
+      max-width: 380px;
+      overflow: hidden;
+    }
+    .meter-fill {
+      height: 100%;
+      background: var(--dark-charcoal);
+      width: 0;
+      transition: width 420ms var(--ease-out);
+    }
+
+    .window-line {
+      margin-top: 22px;
+      font-size: 0.85rem;
+      color: var(--dark-charcoal);
+      border-top: 1px solid var(--border-color);
+      padding-top: 18px;
+    }
+    .window-line strong { color: var(--brand-gold); }
+
+    /* ── الطبقات ── */
+    .section-title {
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      font-family: 'Montserrat', sans-serif;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin: 62px 0 18px;
+    }
+
+    .tier-list { display: flex; flex-direction: column; gap: 12px; }
+    .tier {
+      border: 1px solid var(--border-color);
+      padding: 20px 22px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      cursor: pointer;
+      background: var(--pure-white);
+      transition: border-color 200ms var(--ease-out), background-color 200ms var(--ease-out);
+      text-align: right;
+      width: 100%;
+      font-family: inherit;
+    }
+    .tier:hover { border-color: #d8d8d8; }
+    .tier.selected { border-color: var(--dark-charcoal); background: var(--soft-white); }
+    .tier.sold-out { opacity: 0.45; cursor: not-allowed; }
+
+    .tier-main { flex: 1; }
+    .tier-name { font-weight: 700; font-size: 1.02rem; }
+    .tier-remaining { font-size: 0.78rem; color: var(--text-muted); margin-top: 5px; }
+    .tier-price {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+    .tier-badge {
+      font-size: 0.66rem;
+      letter-spacing: 1px;
+      border: 1px solid var(--brand-gold);
+      color: var(--brand-gold);
+      padding: 3px 8px;
+      white-space: nowrap;
+    }
+
+    /* ── الدولة ── */
+    .country-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .country-btn {
+      border: 1px solid var(--border-color);
+      background: var(--pure-white);
+      padding: 14px 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.86rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      transition: border-color 200ms var(--ease-out), background-color 200ms var(--ease-out);
+    }
+    .country-btn .flag { font-size: 1.3rem; }
+    .country-btn.selected { border-color: var(--dark-charcoal); background: var(--soft-white); font-weight: 700; }
+    .country-btn.unavailable { opacity: 0.4; cursor: not-allowed; }
+    .country-btn .status { font-size: 0.62rem; color: var(--text-muted); }
+
+    /* ── CTA ── */
+    .cta {
+      display: block;
+      width: 100%;
+      margin-top: 34px;
+      padding: 20px;
+      background: var(--dark-charcoal);
+      color: var(--pure-white);
+      border: none;
+      font-family: 'Almarai', sans-serif;
+      font-size: 1.02rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: opacity 200ms var(--ease-out);
+    }
+    .cta:hover { opacity: 0.86; }
+    .cta[aria-disabled="true"] { background: #cccccc; cursor: not-allowed; }
+    .cta-secondary {
+      background: var(--pure-white);
+      color: var(--dark-charcoal);
+      border: 1px solid var(--dark-charcoal);
+      margin-top: 12px;
+    }
+    .trust-line {
+      text-align: center;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-top: 14px;
+      line-height: 1.9;
+    }
+
+    /* ── سبب الندرة ── */
+    .reason {
+      margin-top: 62px;
+      border: 1px solid var(--border-color);
+      border-right: 2px solid var(--brand-gold);
+      padding: 30px 28px;
+      background: var(--soft-white);
+    }
+    .reason h2 { font-size: 1.08rem; font-weight: 700; }
+    .reason ul { margin: 16px 0 0; padding-right: 18px; }
+    .reason li { font-size: 0.9rem; color: #444; line-height: 2.1; }
+    .reason .closing {
+      margin-top: 16px;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-color);
+      padding-top: 14px;
+    }
+
+    /* ── سجل التسليم ── */
+    .ledger { margin-top: 44px; }
+    .ledger-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 13px 2px;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.85rem;
+    }
+    .ledger-row .num { font-family: 'Montserrat', sans-serif; color: var(--text-muted); }
+
+    /* ── نموذج الانتظار ── */
+    .waitlist-box { margin-top: 40px; border: 1px solid var(--dark-charcoal); padding: 30px 28px; }
+    .waitlist-box h2 { font-size: 1.08rem; }
+    .waitlist-box p { font-size: 0.88rem; color: var(--text-muted); margin-top: 10px; line-height: 1.9; }
+    .queue-count {
+      margin-top: 16px;
+      font-size: 0.85rem;
+      padding: 12px 14px;
+      background: var(--soft-white);
+      border: 1px solid var(--border-color);
+    }
+    .queue-count strong { font-family: 'Montserrat', sans-serif; }
+
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 26px;
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    /* ── مبدّل العرض (للمراجعة فقط) ── */
+    .preview-toggle {
+      position: fixed;
+      bottom: 18px;
+      left: 18px;
+      display: flex;
+      gap: 6px;
+      background: var(--pure-white);
+      border: 1px solid var(--border-color);
+      padding: 6px;
+      z-index: 50;
+    }
+    .preview-toggle button {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.64rem;
+      letter-spacing: 1px;
+      padding: 7px 11px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+    .preview-toggle button.on { background: var(--dark-charcoal); color: var(--pure-white); }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 620px) {
+      .wrap { padding: 0 18px 70px; }
+      .batch-state { padding: 32px 22px; }
+      .counter { font-size: 2.8rem; }
+      .country-grid { grid-template-columns: repeat(2, 1fr); }
+      .tier { flex-wrap: wrap; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand-logo">MTM</div>
+    <div class="brand-tagline">Made To Match · Luxury Timepieces</div>
+  </header>
+
+  <div class="wrap">
+
+    <!-- حالة الدفعة -->
+    <section class="batch-state">
+      <div class="state-label" id="stateLabel">دفعة يوليو</div>
+      <h1 class="state-headline" id="stateHeadline">الحجز مفتوح</h1>
+      <div class="counter" id="counterBlock">
+        <span id="counterRemaining">0</span><span class="of" id="counterTotal"> / 0</span>
+      </div>
+      <div class="counter-note" id="counterNote">قطعة متبقية من دفعة هذا الشهر</div>
+      <div class="meter" id="meterWrap"><div class="meter-fill" id="meterFill"></div></div>
+      <p class="state-sub" id="stateSub"></p>
+      <div class="window-line" id="windowLine"></div>
+    </section>
+
+    <!-- الطبقات -->
+    <div id="tierSection">
+      <div class="section-title">اختر الإصدار</div>
+      <div class="tier-list" id="tierList"></div>
+    </div>
+
+    <!-- الدولة -->
+    <div id="countrySection">
+      <div class="section-title">اختر دولة التوصيل</div>
+      <div class="country-grid" id="countryGrid"></div>
+    </div>
+
+    <!-- CTA -->
+    <a class="cta" id="primaryCta" href="#">احجز مكانك</a>
+    <a class="cta cta-secondary hidden" id="secondaryCta" href="#">سجّلني في قائمة الانتظار</a>
+    <div class="trust-line" id="trustLine"></div>
+
+    <!-- سبب الندرة -->
+    <section class="reason">
+      <h2 id="reasonTitle">ليش الدفعة محدودة؟</h2>
+      <ul id="reasonList"></ul>
+      <div class="closing" id="reasonClosing"></div>
+    </section>
+
+    <!-- سجل التسليم -->
+    <section class="ledger" id="ledgerSection">
+      <div class="section-title">تسليمات الدفعة الحالية</div>
+      <div id="ledgerList"></div>
+    </section>
+
+    <!-- قائمة الانتظار -->
+    <section class="waitlist-box hidden" id="waitlistBox">
+      <h2 id="waitlistTitle">دفعة هذا الشهر مقفلة</h2>
+      <p id="waitlistBody"></p>
+      <div class="queue-count" id="queueCount"></div>
+    </section>
+
+  </div>
+
+  <footer>MTM · تراث يُرسم</footer>
+
+  <!-- مبدّل الحالة: للمراجعة والسكرينشوت فقط — احذفه قبل النشر -->
+  <div class="preview-toggle">
+    <button id="btnOpen" class="on" onclick="previewState('OPEN')">OPEN</button>
+    <button id="btnClosed" onclick="previewState('CLOSED')">CLOSED</button>
+  </div>
+
+  <script>
+    /* ═══════════════════════════════════════════════════════════════
+       batchData — المصدر الوحيد لكل رقم يظهر في الصفحة.
+
+       ⚠ قاعدة النظام: كل قيمة `remaining` هنا يجب أن تكون منسوخة من
+       مخزون Shopify الحقيقي، لا مكتوبة يدوياً. راجع
+       skills/inbound-demand-engine/references/weekly-runbook.md
+       القيم أدناه قراءة 2026-07-29 — أعد تحديثها كل أحد.
+       ═══════════════════════════════════════════════════════════════ */
+    const batchData = {
+      state: "OPEN",                    // OPEN | CLOSED
+      monthLabel: "دفعة يوليو",
+      inventorySyncedAt: "2026-07-29",
+
+      /* batchSize = المخزون الكلي لحظة فتح الدفعة (يُثبَّت عند الفتح ولا يزيد بعده).
+         مجموع remaining أدناه = 50، فهذا هو حجم دفعة يوليو. */
+      batchSize: 50,
+
+      window: {
+        opensAt:  "الأحد 4:00 م",
+        closesAt: "الثلاثاء 4:00 م",
+        nextOpen: "الأحد القادم 4:00 م"
+      },
+
+      /* handle = handle المنتج في Shopify */
+      tiers: [
+        {
+          id: "alwatan",
+          name: "الوطن",
+          price: 15,
+          handle: "الوطن-ساعة-تراثية-كويتية",
+          badge: "نقطة البداية",
+          remaining: { kuwait: 10, saudi: 0, uae: 0, qatar: 0, bahrain: 0, oman: 0 }
+        },
+        {
+          id: "bawaba",
+          name: "بوابة الوطن",
+          price: 50,
+          handle: "بوابة-الوطن-ساعة-تراثية-كويتية",
+          badge: "الأكثر طلباً",
+          remaining: { kuwait: 30, saudi: 0, uae: 0, qatar: 0, bahrain: 0, oman: 0 }
+        },
+        {
+          id: "shams",
+          name: "شمس الوطن",
+          price: 100,
+          handle: "شمس-الوطن-ساعة-تراثية-كويتية",
+          badge: "الإصدار الأعلى",
+          remaining: { kuwait: 10, saudi: 0, uae: 0, qatar: 0, bahrain: 0, oman: 0 }
+        }
+      ],
+
+      countries: [
+        { id: "kuwait",  name: "الكويت",   flag: "🇰🇼" },
+        { id: "saudi",   name: "السعودية", flag: "🇸🇦" },
+        { id: "uae",     name: "الإمارات", flag: "🇦🇪" },
+        { id: "qatar",   name: "قطر",      flag: "🇶🇦" },
+        { id: "bahrain", name: "البحرين",  flag: "🇧🇭" },
+        { id: "oman",    name: "عُمان",    flag: "🇴🇲" }
+      ],
+
+      /* سبب الندرة — لا تحذفه. ندرة بلا سبب تُقرأ ضغطاً. */
+      reason: {
+        points: [
+          "كل قطعة تُنفَّذ يدوياً ولا تُنسخ آلياً",
+          "ثلاث مراحل فحص قبل أن تخرج من عندنا",
+          "لا نبدأ دفعة جديدة قبل تسليم الدفعة السابقة بالكامل"
+        ],
+        closing: "لهذا العدد محدود — وهذا العدد حقيقي. حين يصل صفراً نُقفل فعلاً، ولا نمدّد."
+      },
+
+      /* تسليمات معلنة بدون كشف هوية العميل.
+         فاضية حتى يوجد تسليم فعلي — القسم يختفي تلقائياً وهي صفر.
+         الشكل: { num: "#1", note: "تم التسليم — الكويت" } */
+      ledger: [],
+
+      /* queue = عدد المسجّلين الفعلي في قائمة الانتظار، لا رقم ترويجي */
+      waitlist: { queue: 0, whatsapp: "96598553406" },
+
+      storeDomain: "mtmso.myshopify.com"
+    };
+
+    /* ── الحالة المحلية ── */
+    let selectedTier = null;
+    let selectedCountry = "kuwait";
+
+    const totalRemaining = (tier) =>
+      Object.values(tier.remaining).reduce((a, b) => a + b, 0);
+
+    const batchTotals = () => {
+      const remaining = batchData.tiers.reduce((sum, t) => sum + totalRemaining(t), 0);
+      /* حجم الدفعة = أعلى قيمة عرفناها لها؛ يُحدَّث مع كل مزامنة مخزون */
+      const total = batchData.batchSize || remaining;
+      return { remaining, total };
+    };
+
+    function productUrl(tier, country) {
+      /* الفيرنت يُختار على صفحة المنتج — الدولة تمرَّر كمعامل للتتبّع */
+      return `https://${batchData.storeDomain}/products/${encodeURIComponent(tier.handle)}?variant_country=${country}`;
+    }
+
+    function waitlistUrl(tier) {
+      const name = tier ? tier.name : "الدفعة القادمة";
+      const msg = encodeURIComponent(
+        `مرحباً MTM، دفعة هذا الشهر مقفلة.\nأبغى أسجّل في قائمة انتظار: ${name}\nالدولة: ${countryName(selectedCountry)}`
+      );
+      return `https://wa.me/${batchData.waitlist.whatsapp}?text=${msg}`;
+    }
+
+    const countryName = (id) =>
+      (batchData.countries.find(c => c.id === id) || {}).name || id;
+
+    /* ── العرض ── */
+    function renderCounter() {
+      const { remaining, total } = batchTotals();
+      document.getElementById("stateLabel").textContent = batchData.monthLabel;
+      document.getElementById("counterRemaining").textContent = remaining;
+      document.getElementById("counterTotal").textContent = ` / ${total}`;
+      const sold = Math.max(0, total - remaining);
+      document.getElementById("meterFill").style.width =
+        total > 0 ? `${(sold / total) * 100}%` : "0%";
+    }
+
+    function renderTiers() {
+      const list = document.getElementById("tierList");
+      list.innerHTML = "";
+      batchData.tiers.forEach(tier => {
+        const left = tier.remaining[selectedCountry] || 0;
+        const soldOut = left === 0;
+        const btn = document.createElement("button");
+        btn.className = "tier"
+          + (soldOut ? " sold-out" : "")
+          + (selectedTier === tier.id ? " selected" : "");
+        btn.disabled = soldOut;
+        btn.innerHTML = `
+          <div class="tier-main">
+            <div class="tier-name">${tier.name}</div>
+            <div class="tier-remaining">${
+              soldOut
+                ? `غير متوفر في ${countryName(selectedCountry)} حالياً`
+                : `متبقي ${left} في ${countryName(selectedCountry)}`
+            }</div>
+          </div>
+          ${tier.badge ? `<span class="tier-badge">${tier.badge}</span>` : ""}
+          <div class="tier-price">${tier.price} د.ك</div>`;
+        if (!soldOut) btn.onclick = () => { selectedTier = tier.id; render(); };
+        list.appendChild(btn);
+      });
+    }
+
+    function renderCountries() {
+      const grid = document.getElementById("countryGrid");
+      grid.innerHTML = "";
+      batchData.countries.forEach(c => {
+        const stock = batchData.tiers.reduce((s, t) => s + (t.remaining[c.id] || 0), 0);
+        const off = stock === 0;
+        const btn = document.createElement("button");
+        btn.className = "country-btn"
+          + (off ? " unavailable" : "")
+          + (selectedCountry === c.id ? " selected" : "");
+        btn.disabled = off;
+        btn.innerHTML = `
+          <span class="flag">${c.flag}</span>
+          <span>${c.name}</span>
+          <span class="status">${off ? "الدفعة القادمة" : `${stock} متاح`}</span>`;
+        if (!off) btn.onclick = () => { selectedCountry = c.id; selectedTier = null; render(); };
+        grid.appendChild(btn);
+      });
+    }
+
+    function renderReason() {
+      document.getElementById("reasonList").innerHTML =
+        batchData.reason.points.map(p => `<li>${p}</li>`).join("");
+      document.getElementById("reasonClosing").textContent = batchData.reason.closing;
+    }
+
+    function renderLedger() {
+      const wrap = document.getElementById("ledgerList");
+      wrap.innerHTML = batchData.ledger.map(r =>
+        `<div class="ledger-row"><span>${r.note}</span><span class="num">${r.num}</span></div>`
+      ).join("");
+      document.getElementById("ledgerSection").classList.toggle(
+        "hidden", batchData.ledger.length === 0);
+    }
+
+    function renderOpenState() {
+      const { remaining } = batchTotals();
+      const tier = batchData.tiers.find(t => t.id === selectedTier);
+
+      document.getElementById("stateHeadline").textContent = "الحجز مفتوح";
+      document.getElementById("counterNote").textContent = "قطعة متبقية من دفعة هذا الشهر";
+      document.getElementById("counterBlock").classList.remove("hidden");
+      document.getElementById("meterWrap").classList.remove("hidden");
+      document.getElementById("stateSub").textContent =
+        `المخزون محدَّث بتاريخ ${batchData.inventorySyncedAt}. الرقم أعلاه هو المتبقي فعلاً، لا رقماً ترويجياً.`;
+      document.getElementById("windowLine").innerHTML =
+        `النافذة تُقفل <strong>${batchData.window.closesAt}</strong> — ومن فاتته يدخل قائمة انتظار الدفعة القادمة.`;
+
+      document.getElementById("tierSection").classList.remove("hidden");
+      document.getElementById("countrySection").classList.remove("hidden");
+      document.getElementById("waitlistBox").classList.add("hidden");
+
+      const cta = document.getElementById("primaryCta");
+      const second = document.getElementById("secondaryCta");
+
+      if (remaining === 0) {
+        cta.textContent = "نفدت الدفعة — سجّلني في قائمة الانتظار";
+        cta.href = waitlistUrl(tier);
+        cta.removeAttribute("aria-disabled");
+        second.classList.add("hidden");
+      } else if (!tier) {
+        cta.textContent = "اختر إصداراً للمتابعة";
+        cta.href = "#";
+        cta.setAttribute("aria-disabled", "true");
+        second.classList.add("hidden");
+      } else {
+        cta.textContent = `احجز ${tier.name} — ${tier.price} د.ك`;
+        cta.href = productUrl(tier, selectedCountry);
+        cta.removeAttribute("aria-disabled");
+        second.textContent = "ما أبغى الحين — نبّهني بالدفعة القادمة";
+        second.href = waitlistUrl(tier);
+        second.classList.remove("hidden");
+      }
+
+      document.getElementById("trustLine").innerHTML =
+        "الدفع عبر المتجر · ضمان سنتين على الحركة · إرجاع خلال 14 يوماً<br>لا نمدّد النافذة ولا نضيف قطعاً خارج الدفعة";
+    }
+
+    function renderClosedState() {
+      document.getElementById("stateHeadline").textContent = "دفعة هذا الشهر مقفلة";
+      document.getElementById("counterBlock").classList.add("hidden");
+      document.getElementById("meterWrap").classList.add("hidden");
+      document.getElementById("counterNote").textContent = "";
+      /* السبب يُشتق: نفاد فعلي، أو انتهاء النافذة ببقاء مخزون */
+      document.getElementById("stateSub").textContent = batchTotals().remaining === 0
+        ? "بيعت الدفعة بالكامل وأُقفل الحجز في موعده المعلن. لم نضف قطعاً إضافية."
+        : "أُقفلت نافذة الحجز في موعدها المعلن. ما تبقّى من الدفعة يُرحَّل للدفعة القادمة.";
+      document.getElementById("windowLine").innerHTML =
+        `الفتح القادم: <strong>${batchData.window.nextOpen}</strong>`;
+
+      document.getElementById("tierSection").classList.add("hidden");
+      document.getElementById("countrySection").classList.add("hidden");
+      document.getElementById("waitlistBox").classList.remove("hidden");
+
+      document.getElementById("waitlistTitle").textContent = "قائمة انتظار الدفعة القادمة";
+      document.getElementById("waitlistBody").textContent =
+        "المسجّلون في القائمة يُبلَّغون قبل فتح الحجز للعامة، ويحجزون أولاً. التسجيل لا يلزمك بالشراء.";
+      const q = batchData.waitlist.queue;
+      document.getElementById("queueCount").innerHTML = q > 0
+        ? `في القائمة حالياً: <strong>${q}</strong> — والدفعة القادمة محدودة أيضاً.`
+        : `القائمة فتحت الآن — كن أول المسجّلين للدفعة القادمة.`;
+
+      const cta = document.getElementById("primaryCta");
+      cta.textContent = "سجّلني في قائمة الانتظار";
+      cta.href = waitlistUrl(null);
+      cta.removeAttribute("aria-disabled");
+      document.getElementById("secondaryCta").classList.add("hidden");
+      document.getElementById("trustLine").textContent =
+        "التسجيل عبر واتساب · لا رسائل ترويجية، إشعار الفتح فقط";
+    }
+
+    function render() {
+      renderCounter();
+      renderReason();
+      renderLedger();
+      if (batchData.state === "CLOSED") {
+        renderClosedState();
+      } else {
+        renderTiers();
+        renderCountries();
+        renderOpenState();
+      }
+    }
+
+    /* مبدّل المراجعة — يُحذف مع .preview-toggle قبل النشر */
+    function previewState(s) {
+      batchData.state = s;
+      document.getElementById("btnOpen").classList.toggle("on", s === "OPEN");
+      document.getElementById("btnClosed").classList.toggle("on", s === "CLOSED");
+      render();
+    }
+
+    render();
+  </script>
+</body>
+</html>
