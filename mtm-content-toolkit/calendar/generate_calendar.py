@@ -172,6 +172,35 @@ PROMPT_BLOCK = re.compile(
 )
 
 
+def warn_if_stale() -> None:
+    """تحذير (لا خطأ) لو البرومبتات منحرفة عن brand/catalog.json — يمنع توليد
+    محتوى بأسعار أو حقائق قديمة بدون ما تنتبه."""
+    sys.path.insert(0, str(ROOT / "brand"))
+    try:
+        import sync
+    except Exception:
+        return  # أداة المزامنة غير متاحة — ما نوقف التوليد بسببها
+
+    try:
+        catalog = json.loads((ROOT / "brand" / "catalog.json").read_text(encoding="utf-8"))
+        stale = [
+            path.name
+            for path, expected in sync.build_targets(catalog)
+            if path.read_text(encoding="utf-8") != expected
+        ]
+    except SystemExit:
+        return  # sync يستخدم sys.exit عند خطأ في الكتالوج — نتجاهله هنا
+    except Exception:
+        return
+
+    if stale:
+        print(
+            "تحذير: البرومبتات غير متزامنة مع brand/catalog.json "
+            f"({', '.join(stale)}).\nشغّل: python3 brand/sync.py",
+            file=sys.stderr,
+        )
+
+
 def read_prompt(filename: str) -> str:
     """يستخرج نص البرومبت المحصور بين BEGIN:PROMPT و END:PROMPT."""
     path = PROMPTS_DIR / filename
@@ -374,6 +403,7 @@ def main() -> None:
 
     mode = MODES["hooks" if args.hooks_only else "calendar"]
 
+    warn_if_stale()
     prompt = read_prompt(mode["prompt_file"])
     params = build_request(prompt, mode, args.model, args.effort)
 
