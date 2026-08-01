@@ -119,14 +119,11 @@ def brand_context(catalog: dict) -> str:
     ]
     parts += [f"  · {spec}" for spec in catalog["specs"]]
 
-    policies = catalog["policies"]
+    # تُقرأ كل قيم policies لا أسماء محددة — عشان أي حقيقة تؤكدها لاحقاً
+    # (عدد القطع، مدة التصنيع) تنتشر للبرومبتات بمجرد إضافتها هناك.
+    parts.append("- السياسات:")
+    parts += [f"  · {value}" for value in catalog["policies"].values()]
     parts += [
-        "- السياسات:",
-        f"  · {policies['warranty']}",
-        f"  · {policies['returns']}",
-        f"  · {policies['shipping']}",
-        f"  · {policies['vat']}",
-        f"  · {policies['packaging']}",
         f"- الجمهور: {brand['audience']}.",
         f"- إنستغرام: {brand['instagram']}. الطلب: {brand['order_channel']}.",
         f"- النبرة: {brand['positioning']}.",
