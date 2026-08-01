@@ -111,7 +111,23 @@ def brand_context(catalog: dict) -> str:
         f"  · {bawaba['baseTitle']} ({bawaba['collection']}) — نقش لمَعلم تاريخي خاص بكل دولة.",
         f"  · {national['baseTitle']} ({national['collection']}) — إصدار احتفالي لكل دولة.",
         f"- 12 إصدار = خطان × 6 دول: {countries}.",
-        "- الأسعار:",
+        "",
+        "⚠️ عندك عائلتان من المنتجات بأسعار مختلفة — لا تخلط بينهما:",
+        "",
+        "أولاً — ما يُباع فعلاً على المتجر (استخدم هذه الأسعار في أي محتوى بيعي):",
+    ]
+    live = catalog["shopify_live"]
+    parts += [
+        f"  · {item['name']} — {item['price']} (متاح)" for item in live["active"]
+    ]
+    parts += [
+        f"  · {item['name']} — {item['price']} (غير منشور بعد — لا تعلن عنه)"
+        for item in live["draft"]
+    ]
+    parts += [
+        f"  السوق المتاح: {live['stocked_market']}.",
+        "",
+        "ثانياً — خط النموذج، غير مُطلق. لا تنشر أسعاره كأنها متاحة للشراء:",
         price_table(catalog, indent="  "),
         "- المَعلم المنقوش على كل إصدار (استخدمه بالاسم، ولا تنسب معلماً لإصدار غير إصداره):",
         motif_table(catalog, indent="  "),
