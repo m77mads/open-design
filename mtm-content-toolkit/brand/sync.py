@@ -85,6 +85,19 @@ def price_table(catalog: dict, indent: str = "") -> str:
     return "\n".join(lines)
 
 
+def motif_table(catalog: dict, indent: str = "") -> str:
+    """جدول الإصدارات ومعالمها — أساس التمايز وقصص المحتوى."""
+    lines = [
+        f"{indent}| الإصدار | المَعلم/الرمز المنقوش |",
+        f"{indent}|---|---|",
+    ]
+    for pkey, product in catalog["products"].items():
+        for country in catalog["countries"]:
+            edition = product["countries"][country["key"]]
+            lines.append(f"{indent}| {edition['name']} | {edition['motif']} |")
+    return "\n".join(lines)
+
+
 def brand_context(catalog: dict) -> str:
     """كتلة السياق اللي تُحقن في كل برومبت."""
     brand = catalog["brand"]
@@ -100,18 +113,17 @@ def brand_context(catalog: dict) -> str:
         f"- 12 إصدار = خطان × 6 دول: {countries}.",
         "- الأسعار:",
         price_table(catalog, indent="  "),
+        "- المَعلم المنقوش على كل إصدار (استخدمه بالاسم، ولا تنسب معلماً لإصدار غير إصداره):",
+        motif_table(catalog, indent="  "),
         "- المواصفات:",
     ]
     parts += [f"  · {spec}" for spec in catalog["specs"]]
 
-    policies = catalog["policies"]
+    # تُقرأ كل قيم policies لا أسماء محددة — عشان أي حقيقة تؤكدها لاحقاً
+    # (عدد القطع، مدة التصنيع) تنتشر للبرومبتات بمجرد إضافتها هناك.
+    parts.append("- السياسات:")
+    parts += [f"  · {value}" for value in catalog["policies"].values()]
     parts += [
-        "- السياسات:",
-        f"  · {policies['warranty']}",
-        f"  · {policies['returns']}",
-        f"  · {policies['shipping']}",
-        f"  · {policies['vat']}",
-        f"  · {policies['packaging']}",
         f"- الجمهور: {brand['audience']}.",
         f"- إنستغرام: {brand['instagram']}. الطلب: {brand['order_channel']}.",
         f"- النبرة: {brand['positioning']}.",
